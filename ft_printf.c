@@ -6,11 +6,30 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/16 17:05:08 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/16 18:40:50 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/18 15:16:49 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+void 	init_funcs(void	(*con)(char*, void*, int*)[NO_OF_FLAGS])
+{
+	con[0] = &str;
+	con[1] = &wid;
+	con[2] = &poi;
+	con[3] = &dig;
+	con[4] = &dig;
+	con[5] = &dig;
+	con[6] = &oct;
+	con[7] = &oct;
+	con[8] = &usi;
+	con[9] = &usi;
+	con[10] = &hex;
+	con[11] = &hex;
+	con[12] = &uch;
+	con[13] = &uni;
+	con[14] = &not;
+}	
 
 void	init_flags(char *flags[NO_OF_FLAGS])
 {
@@ -29,12 +48,38 @@ void	init_flags(char *flags[NO_OF_FLAGS])
 	flags[12] = "c";
 	flags[13] = "C";
 	flags[14] = "%";
-	flags[15] = "hh";
-	flags[16] = "h";
-	flags[17] = "l";
-	flags[18] = "ll";
-	flags[19] = "j";
-	flags[20] = "z";
+}
+
+void	init_mods(char	*mods[NO_OF_MODS])
+{
+	mods[0] = "hh";
+	mods[1] = "h";
+	mods[2] = "l";
+	mods[3] = "ll";
+	mods[4] = "j";
+	mods[5] = "z";
+}
+
+int		is_flag(char *f)
+{
+	char	*flags[NO_OF_FLAGS];
+	char	*mods[NO_OF_MODS];
+	int		i;
+
+	init_flags(flags);
+	i = -1;
+	while (++i < NO_OF_FLAGS)
+	{
+		if(!ft_strnmp(flags[i], f, ft_strlen(flags[i])))
+			return (i + 1);
+	}
+	i = -1;
+	while (++i < NO_OF_MODS)
+	{
+		if(!ft_strcmp(mods[i], f, ft_strlen(mods[i])))
+			return (-1 * (i + 1));
+	}
+	return (0);
 }
 
 int		ft_printf(const char *str, ...)
