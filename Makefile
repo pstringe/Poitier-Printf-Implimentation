@@ -1,16 +1,13 @@
 CC = gcc
 INC = ./libft
-NAME = grimly
-SRCS = grimly.c\
-	   parse.c\
-	   solve.c\
-	   point.c\
-	   queue.c\
-	   utils.c
+NAME = ft_printf
+SRCS = ft_printf.c\
+	   main.c\
+	   string.c
 OBJS = $(patsubst %.c, %.o, $(SRCS))
 LIBD = -L$(INC) -lft
-CFLAGS = -g -fsanitize=address -Wall -Werror -Wextra -I$(INC) 
-OFLAGS =  -fsanitize=address -o $(NAME) $(OBJS) $(LIBD)
+CFLAGS = -g -Wall -Werror -Wextra -I$(INC) 
+OFLAGS = -o $(NAME) $(OBJS) $(LIBD)
 DSRCS = $(SRCS)
 DFLAGS = $(CFLAGS) -g $(LIBD) $(DSRCS) -o
 DNAME = $(NAME)_debug

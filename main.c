@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/09 19:31:04 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/21 09:45:40 by pstringe         ###   ########.fr       */
+/*   Created: 2018/04/19 09:40:33 by pstringe          #+#    #+#             */
+/*   Updated: 2018/04/21 08:38:43 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include "libft.h"
-# include <stdarg.h>
+#include <stdio.h>
+#include "ft_printf.h"
 
-# define MAX 4096
-# define FLAGS "s"
-# define NO_OF_FLAGS 1
-# define NO_OF_MODS 6
+int 	main(int argc, char **argv)
+{
+	int 	i;
+	char	*str;
 
-int		ft_printf(const char *str, ...);
-int		str(char *buf, int mod, va_list args);
-#endif
+	if (argc >= 2)
+	{
+		i = 0;
+		while (++i < argc)
+		{
+			str = argv[i];
+			printf("printf:\t%s\n", str);
+			ft_printf("ft_printf:\t%s\n", str);
+		}
+	}
+	return (0);
+}
