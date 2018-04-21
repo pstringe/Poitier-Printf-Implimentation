@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/16 17:05:08 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/21 10:38:32 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/21 15:41:55 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int		is_flag(const char *f)
 	char	*mods[NO_OF_MODS];
 	int		i;
 
+	init_mods(mods);
 	flags = FLAGS;
 	i = -1;
 	while (++i < NO_OF_FLAGS)
@@ -80,12 +81,26 @@ int		convert(char *buf, int code, va_list args)
 	return (bytes);
 }
 
+int		get_len(int code)
+{
+	char	*mods[NO_OF_MODS];
+	
+	init_mods(mods);
+	if (!code)
+		return (0);
+	if (code < 0)
+		return ((code * -1 <= NO_OF_MODS) ? ft_strlen(mods[code * -1 - 1]) : 0);
+	else 
+		return ((code <= NO_OF_FLAGS) ? ft_strlen(mods[code - 1]) : 0);
+}
+
 int		ft_printf(const char *format, ...)
 {
 	va_list			ap;
 	char 			*buf;
 	unsigned int	bytes;
 	int				i;
+	int				f;
 
 	va_start(ap, format);
 	bytes = 0;
@@ -95,7 +110,11 @@ int		ft_printf(const char *format, ...)
 	{
 		buf[bytes] = format[i];
 		if (buf[bytes] == '%')
-			bytes += convert((buf + bytes), is_flag((format + i + 1)), ap);
+		{
+			f = is_flag((format + i + 1));
+			i += get_len(f);
+			bytes += convert((buf + bytes), f, ap);
+		}
 		else
 			bytes++;
 	}
