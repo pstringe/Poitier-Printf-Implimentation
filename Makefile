@@ -3,7 +3,15 @@ INC = ./libft
 NAME = ft_printf
 SRCS = ft_printf.c\
 	   main.c\
-	   string.c
+	   string.c\
+	   pointer.c\
+	   uch.c\
+	   digit.c\
+	   hexadecimal.c\
+	   unicode.c\
+	   usi.c\
+	   not.c\
+	   oct.c
 OBJS = $(patsubst %.c, %.o, $(SRCS))
 LIBD = -L$(INC) -lft
 CFLAGS = -g -Wall -Werror -Wextra -I$(INC) 

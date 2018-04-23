@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/16 17:05:08 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/21 15:41:55 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/23 10:50:07 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,28 @@
 void 	init_funcs(int	(*con[NO_OF_FLAGS])(char*, int, va_list))
 {
 	con[0] = &str;
-	//con[1] = &wid;
-	//con[2] = &poi;
-	//con[3] = &dig;
-	//con[4] = &dig;
-	//con[5] = &dig;
-	//con[6] = &oct;
-	//con[7] = &oct;
-	//con[8] = &usi;
-	//con[9] = &usi;
-	//con[10] = &hex;
-	//con[11] = &hex;
-	//con[12] = &uch;
-	//con[13] = &uni;
-	//con[14] = &not;
+	con[1] = &str;
+	con[2] = &poi;
+	con[3] = &dig;
+	con[4] = &dig;
+	con[5] = &dig;
+	con[6] = &oct;
+	con[7] = &oct;
+	con[8] = &usi;
+	con[9] = &usi;
+	con[10] = &hex;
+	con[11] = &hex;
+	con[12] = &uch;
+	con[13] = &uni;
+	con[14] = &not;
 }	
+
+/*
+**	this function initializes an array of strings representing modifiers, get()
+**	compares strlen(mod[x]) bytes between mod[x] && stuff->format[pos] and returns 
+**	-1 * (x + 1) for a true comparsion (I've researved negative numbers for modifiers
+**	and 0 for error;
+*/
 
 void	init_mods(char	*mods[NO_OF_MODS])
 {
@@ -41,7 +48,13 @@ void	init_mods(char	*mods[NO_OF_MODS])
 	mods[5] = "z";
 }
 
-int		is_flag(const char *f)
+/*
+**	this function returns a unique code for every flag and modifier that is used to 
+**	that convert() will use to access the propper index in an array of function 
+**	pointers to handel the conversion. 
+*/
+
+int		is(t_stuff *stuff)
 {
 	char	*flags;
 	char	*mods[NO_OF_MODS];
@@ -51,75 +64,122 @@ int		is_flag(const char *f)
 	flags = FLAGS;
 	i = -1;
 	while (++i < NO_OF_FLAGS)
-		if(*f == flags[i])
+	{
+		if(stuff->format[pos] == flags[i])
+		{
+			pos++;
 			return (i + 1);
+		}
+	}
 	i = -1;
 	while (++i < NO_OF_MODS)
-		if(!ft_strncmp(mods[i], f, ft_strlen(mods[i])))
+	{
+		if(!ft_strncmp(mods[i], stuff->format[pos], ft_strlen(mods[i])))
+		{
+			pos += ft_strlen(mods[i]);
 			return (-1 * (i + 1));
+		}
+	}
 	return (0);
 }
 
-int		convert(char *buf, int code, va_list args)
+/*
+**	this function initializes the stuff I need in order to copy, get, and convert 
+**	stuff
+*/
+
+void	init(t_stuff *stuff, char *format)
 {
-	int				bytes;
+	stuff->bytes = 0;
+	stuff->pos = 0;
+	stuff->format = format;
+	stuff->buf = ft_strnew(MAX);
+}
+
+/*
+**	this function calls the appropriate function to handel a conversion, given the 
+**	modifiers form get();
+*/
+
+int		convert(t_stuff *stuff)
+{
 	static int		mod;
 	static int		(*con[NO_OF_FLAGS + 1])(char*, int, va_list);
 	
 	bytes = 0;
 	if (!*con)
 		init_funcs(con);
-	if (!code)
+	if (!stuff->flag)
 		return(0);
-	else if (code < 0)
-		mod = (code + 1) * -1;
-	else if (code > 0)
-	{
-		bytes = con[code - 1](buf, mod, args);
-		mod = 0;
-	}
-	return (bytes);
+	else
+		bytes = con[code - 1](stuff->buf, stuff->mods, stuff->args);
+	mod = 0;
+	stuff->bytes += bytes;
 }
 
-int		get_len(int code)
+/*
+**	once a percent sign is encoutered, in cpy(), this function grabs and stores codes
+**	for the modifiers and flags that follow.
+*/
+
+int		get(t_stuff *stuff)
 {
-	char	*mods[NO_OF_MODS];
-	
-	init_mods(mods);
-	if (!code)
-		return (0);
-	if (code < 0)
-		return ((code * -1 <= NO_OF_MODS) ? ft_strlen(mods[code * -1 - 1]) : 0);
-	else 
-		return ((code <= NO_OF_FLAGS) ? ft_strlen(mods[code - 1]) : 0);
+	int		f;
+	int		i;
+
+	mod = (int*)ft_memalloc(sizeof(int) * 4);
+	ft_bzero(mod);
+	i = -1;
+	f = 0;
+	while ((f = is(stuff)) < 0)
+		mod[++i] = f;
+	if (!f)
+		ft_memdel((void**)&mod);
+	stuff->mod = mod;
+	if ((f = is(stuff)) > 0)
+		stuff->flag = f;
+	else
+		stuff->flag = 0;
+	return ((f) ? 1 : 0);
 }
+
+/*
+**	this function copies the format string to the buffer byte by byte until it 
+**	either terminates, a '%' is encountered, or there is no more space in the buffer. 
+*/
+
+int		cpy(t_stuff *stuff)
+{
+	format = stuff->format;
+	i = stuff->pos;
+	j = stuff->bytes;
+	while (format[i] && format[i] != '%' && j < MAX)
+		stuff->buf[j++] = format[i++];
+	stuff->pos = i;
+	stuff->bytes = j;
+	return ((format[i] == '%') 1 : 0);
+}
+
+/*
+**	this is the main function that initializes the arguments, copies the format string
+**	to a buffer until it encounters a '%'. Upon encountering a '%' will get the 
+**	modifiers and format flags. It will then pass this information to the convert
+**	function which will call the appropriate function to edit the buffer, Once the
+**	all conversions have been carried out, or there is no more space in the buffer,
+**	the buffer is printed to standard output and destroyed thereafter.
+*/
 
 int		ft_printf(const char *format, ...)
 {
-	va_list			ap;
-	char 			*buf;
-	unsigned int	bytes;
-	int				i;
-	int				f;
+	t_stuff		*stuff;
 
-	va_start(ap, format);
-	bytes = 0;
-	i = -1;
-	buf = ft_strnew(MAX);
-	while (format[++i] && bytes < MAX)
-	{
-		buf[bytes] = format[i];
-		if (buf[bytes] == '%')
-		{
-			f = is_flag((format + i + 1));
-			i += get_len(f);
-			bytes += convert((buf + bytes), f, ap);
-		}
-		else
-			bytes++;
-	}
-	va_end(ap);
-	buf[bytes] = '\0';
-	write(1, buf, bytes);
+	stuff = (t_stuff*)ft_memalloc(sizeof(t_stuff));
+	va_start(stuff->ap, format);
+	init(stuff, format);
+	while (cpy(stuff))
+		if (get(stuff))
+			convert(stuff);
+	put(stuff);
+	dstry(stuff)
 	return (0);
 }
