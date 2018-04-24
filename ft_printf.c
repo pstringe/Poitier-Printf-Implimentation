@@ -6,13 +6,13 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/16 17:05:08 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/23 10:50:07 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/24 15:06:31 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void 	init_funcs(int	(*con[NO_OF_FLAGS])(char*, int, va_list))
+void 	init_funcs(int	(*con[NO_OF_FLAGS])(t_stuff*))
 {
 	con[0] = &str;
 	con[1] = &str;
@@ -30,6 +30,20 @@ void 	init_funcs(int	(*con[NO_OF_FLAGS])(char*, int, va_list))
 	con[13] = &uni;
 	con[14] = &not;
 }	
+
+/*
+**	this function initializes the stuff I need in order to copy, get, and convert 
+**	stuff
+*/
+
+void	init(t_stuff *stuff, const char *format)
+{
+	stuff->bytes = 0;
+	stuff->pos = 0;
+	stuff->format = format;
+	stuff->buf = ft_strnew(MAX);
+}
+
 
 /*
 **	this function initializes an array of strings representing modifiers, get()
@@ -65,35 +79,22 @@ int		is(t_stuff *stuff)
 	i = -1;
 	while (++i < NO_OF_FLAGS)
 	{
-		if(stuff->format[pos] == flags[i])
+		if(stuff->format[stuff->pos] == flags[i])
 		{
-			pos++;
+			stuff->pos++;
 			return (i + 1);
 		}
 	}
 	i = -1;
 	while (++i < NO_OF_MODS)
 	{
-		if(!ft_strncmp(mods[i], stuff->format[pos], ft_strlen(mods[i])))
+		if(!ft_strncmp(mods[i], (stuff->format + stuff->pos), ft_strlen(mods[i])))
 		{
-			pos += ft_strlen(mods[i]);
+			stuff->pos += ft_strlen(mods[i]);
 			return (-1 * (i + 1));
 		}
 	}
 	return (0);
-}
-
-/*
-**	this function initializes the stuff I need in order to copy, get, and convert 
-**	stuff
-*/
-
-void	init(t_stuff *stuff, char *format)
-{
-	stuff->bytes = 0;
-	stuff->pos = 0;
-	stuff->format = format;
-	stuff->buf = ft_strnew(MAX);
 }
 
 /*
@@ -103,18 +104,15 @@ void	init(t_stuff *stuff, char *format)
 
 int		convert(t_stuff *stuff)
 {
-	static int		mod;
-	static int		(*con[NO_OF_FLAGS + 1])(char*, int, va_list);
+	static int	(*con[NO_OF_FLAGS + 1])(t_stuff *stuff);
 	
-	bytes = 0;
 	if (!*con)
 		init_funcs(con);
 	if (!stuff->flag)
 		return(0);
 	else
-		bytes = con[code - 1](stuff->buf, stuff->mods, stuff->args);
-	mod = 0;
-	stuff->bytes += bytes;
+		stuff->bytes += con[stuff->flag - 1](stuff);
+	return (1);
 }
 
 /*
@@ -126,16 +124,16 @@ int		get(t_stuff *stuff)
 {
 	int		f;
 	int		i;
+	int		*mod;
 
 	mod = (int*)ft_memalloc(sizeof(int) * 4);
-	ft_bzero(mod);
 	i = -1;
 	f = 0;
 	while ((f = is(stuff)) < 0)
 		mod[++i] = f;
-	if (!f)
+	if (!*mod)
 		ft_memdel((void**)&mod);
-	stuff->mod = mod;
+	stuff->mods = mod;
 	if ((f = is(stuff)) > 0)
 		stuff->flag = f;
 	else
@@ -150,6 +148,10 @@ int		get(t_stuff *stuff)
 
 int		cpy(t_stuff *stuff)
 {
+	int			i;
+	int			j;
+	const char	*format;
+
 	format = stuff->format;
 	i = stuff->pos;
 	j = stuff->bytes;
@@ -157,8 +159,21 @@ int		cpy(t_stuff *stuff)
 		stuff->buf[j++] = format[i++];
 	stuff->pos = i;
 	stuff->bytes = j;
-	return ((format[i] == '%') 1 : 0);
+	return ((format[i] == '%') ? 1 : 0);
 }
+
+void	put(t_stuff *stuff)
+{
+	write(1, stuff->buf, stuff->bytes + 1);
+}
+
+void	dstry(t_stuff *stuff)
+{
+	ft_memdel((void**)&stuff->buf);
+	ft_memdel((void**)&stuff->mods);
+	va_end(stuff->ap);
+	ft_memdel((void**)&stuff);
+} 
 
 /*
 **	this is the main function that initializes the arguments, copies the format string
@@ -180,6 +195,6 @@ int		ft_printf(const char *format, ...)
 		if (get(stuff))
 			convert(stuff);
 	put(stuff);
-	dstry(stuff)
+	dstry(stuff);
 	return (0);
 }

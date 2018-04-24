@@ -6,15 +6,15 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 07:36:36 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/23 07:36:44 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/24 14:49:10 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		not(char *buf, int mod, va_list args)
+int		not(t_stuff *stuff)
 {
-	if (!buf && !mod && !args)
+	if (!stuff->buf && !stuff->mods && !stuff->flag)
 		return (-1);
 	return (0);
 }

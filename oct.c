@@ -6,15 +6,15 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 06:50:52 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/23 07:34:39 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/24 14:50:31 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		oct(char *buf, int mod, va_list args)
+int		oct(t_stuff *stuff)
 {
-	if (!buf && !mod && !args)
+	if (!stuff->buf && !stuff->mods && !stuff->flag)
 		return (-1);
 	return (0);
 }
