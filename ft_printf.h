@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 19:31:04 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/24 14:33:32 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/24 19:18:55 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,31 +15,40 @@
 # include "libft.h"
 # include <stdarg.h>
 
-# define MAX 4096
-# define FLAGS "sSpdDioOuUxXcC%"
-# define NO_OF_FLAGS 15
-# define NO_OF_MODS 6
+# define MAX 0xffffffff
+# define TYPES "sSpdDioOuUxXcC%"
+# define FLAGS "-+ 0#"
+# define NO_OF_TYPES 14
+# define NO_OF_LENS 6
 
-typedef	struct	s_tuff
+typedef struct	s_p
+{
+	int		flags[4];
+	int		width;
+	int		precision;
+	int		len;
+	int		type;
+}				t_p;
+
+typedef	struct	s_m
 {
 	const char	*format;
 	char		*buf;
-	int			*mods;
-	int			bytes;
-	int			pos;
-	int			flag;
+	int			pos_f;
+	int			pos_b;
 	va_list		ap;
-}				t_stuff;
+	struct s_p	place;
+}				t_m;
 
 int		ft_printf(const char *str, ...);
 
-int		str(t_stuff *stuff);
-int		poi(t_stuff *stuff);
-int		dig(t_stuff *stuff);
-int		oct(t_stuff *stuff);
-int		usi(t_stuff *stuff);
-int		hex(t_stuff *stuff);
-int		uch(t_stuff *stuff);
-int		uni(t_stuff *stuff);
-int		not(t_stuff *stuff);
+int		str(t_m *m);
+int		poi(t_m *m);
+int		dig(t_m *m);
+int		oct(t_m *m);
+int		usi(t_m *m);
+int		hex(t_m *m);
+int		uch(t_m *m);
+int		uni(t_m *m);
+int		not(t_m *m);
 #endif
