@@ -6,15 +6,15 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 07:35:00 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/24 14:48:27 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/25 09:44:59 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		usi(t_stuff *stuff)
+int		usi(t_m *m)
 {	
-	if (!stuff->buf && !stuff->mods && !stuff->flag)
+	if (!m)	
 		return (-1);
 	return (0);
 }

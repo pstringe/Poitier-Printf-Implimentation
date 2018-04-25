@@ -6,15 +6,15 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 06:52:43 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/24 14:44:42 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/25 09:45:53 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		hex(t_stuff *stuff)
+int		hex(t_m* m)
 {
-	if (!stuff->buf && !stuff->mods && !stuff->flag)
+	if (!m)
 		return (-1);
 	return (0);
 }

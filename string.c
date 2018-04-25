@@ -6,22 +6,20 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 08:16:09 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/24 14:52:54 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/25 10:04:42 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int 	str(t_stuff *stuff)
+int 	str(t_m *m)
 {
 	char *arg;
 	int i;
 	
-	if (stuff->mods)
-		i = 0;
-	arg = va_arg(stuff->ap, char*);
+	arg = va_arg(m->ap, char*);
 	i = -1;
 	while (arg[++i])
-		stuff->buf[stuff->bytes++] = arg[i];
+		m->buf[m->pos_b++] = arg[i];
 	return (i);
 }

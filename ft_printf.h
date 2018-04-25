@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 19:31:04 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/24 19:18:55 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/25 09:51:13 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef	struct	s_m
 	int			pos_f;
 	int			pos_b;
 	va_list		ap;
-	struct s_p	place;
+	struct s_p	*place;
 }				t_m;
 
 int		ft_printf(const char *str, ...);

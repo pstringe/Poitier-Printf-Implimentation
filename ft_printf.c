@@ -6,13 +6,13 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/16 17:05:08 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/25 08:22:45 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/25 10:02:18 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void 	init_funcs(int	(*con[NO_TYPES])(t_stuff*))
+void 	init_funcs(int	(*con[NO_OF_TYPES])(t_m*))
 {
 	con[0] = &str;
 	con[1] = &str;
@@ -31,73 +31,36 @@ void 	init_funcs(int	(*con[NO_TYPES])(t_stuff*))
 	con[14] = &not;
 }	
 
-/*
-**	this function initializes the stuff I need in order to copy, get, and convert 
-**	stuff
-*/
-
-void	init(t_stuff *stuff, const char *format)
+void	init_lens(char	*lens[NO_OF_LENS])
 {
-	stuff->bytes = 0;
-	stuff->pos = 0;
-	stuff->format = format;
-	stuff->buf = ft_strnew(MAX);
+	lens[0] = "hh";
+	lens[1] = "h";
+	lens[2] = "l";
+	lens[3] = "ll";
+	lens[4] = "j";
+	lens[5] = "z";
 }
 
-
-/*
-**	this function initializes an array of strings representing modifiers, get()
-**	compares strlen(mod[x]) bytes between mod[x] && stuff->format[pos] and returns 
-**	-1 * (x + 1) for a true comparsion (I've researved negative numbers for modifiers
-**	and 0 for error;
-*/
-
-void	init_lens(char	*mods[NO_OF_LENS])
+void	init(t_m *m, const char *format)
 {
-	mods[0] = "hh";
-	mods[1] = "h";
-	mods[2] = "l";
-	mods[3] = "ll";
-	mods[4] = "j";
-	mods[5] = "z";
+	m->pos_b = 0;
+	m->pos_f = 0;
+	m->format = format;
+	m->buf = ft_strnew(MAX);
+	m->place = NULL;
 }
 
-/*
-**	retrieves the precision when is stuff encounters a '.'. If the next, charachter in
-**	the format string is a '*', the next argument is fetched and used as the precision.
-**	Otherwise, the following characters are parsed as a number and the position in the 
-**	format string is incremented.
-*/
-
-int		get_p(t_stuff *stuff, int i)
+int		convert(t_m *m)
 {
-	int x;
-
-	x = ft_atoi((stuff->format + stuff->pos + 1));
-	stuff->p = x;
-	if (x)
-		while (x /= 10)
-			stuff->pos++;
-	else if (stuff->format[stuff->pos + 1] == '*')
-		stuff->p = va_arg(stuff->ap, int);
-	return (-1 * (i + 1));
-}
-
-/*
-**	this function calls the appropriate function to handel a conversion, given the 
-**	modifiers form get();
-*/
-
-int		convert(t_stuff *stuff)
-{
-	static int	(*con[NO_OF_FLAGS + 1])(t_stuff *stuff);
+	static int	(*con[NO_OF_TYPES])(t_m*);
 	
 	if (!*con)
 		init_funcs(con);
-	if (!stuff->flag)
-		return(0);
+	//if (!*m->place->flags)
+	//	return(0);
 	else
-		stuff->bytes += con[stuff->flag - 1](stuff);
+		m->pos_b += con[m->place->type](m);
+	ft_memdel((void**)&m->place);
 	return (1);
 }
 
@@ -121,20 +84,23 @@ int		get_flags(t_m *m)
 
 	i = -1;
 	while ((f = is_flag(m->format[m->pos_f++])))
-		m->place->flag[++i] = f - 1;
+		m->place->flags[++i] = f - 1;
 	return (1);
 }
 
 int		get_width(t_m *m)
 {
-	int w;
-	int l;
+	int 	w;
+	int 	l;
+	int		a;
 
 	w = 0;
-	if (m->format[m->pos_f] >= '0' && m->format[m->posf] <= '9')
-		m->place->width = (w = ft_atoi(m->format + m->posf));
+	if ((a = (m->format[m->pos_f] == '*')))
+		m->place->width = (w = va_arg(m->ap, int));
+	else if (m->format[m->pos_f] >= '0' && m->format[m->pos_f] <= '9')
+		m->place->width = (w = ft_atoi(m->format + m->pos_f));
 	l = 1;
-	while (w /= 10)
+	while (w /= 10 && !a)
 		l++;
 	m->pos_f += l;
 	return (l); 
@@ -145,11 +111,11 @@ int		get_precision(t_m *m)
 	int	p;
 	int	l;
 
-	w = 0;
+	p = 0;
 	if (m->format[m->pos_f] == '.')
-		m->place->precision = (m->format[++m->pos_f] == '*') ? va_arg(m->ap, int) : (p = ft_atoi(m->format[m->pos_f]));
+		m->place->precision = (m->format[++m->pos_f] == '*') ? va_arg(m->ap, int) : (p = ft_atoi(&m->format[m->pos_f]));
 	l = 1;
-	while (w /= 10)
+	while (p /= 10)
 		l++;
 	m->pos_f += l;
 	return (l);
@@ -164,10 +130,10 @@ int		get_len(t_m *m)
 	init_lens(lens);
 	i = -1;
 	while (++i < NO_OF_LENS)
-		if (!strncmp(m->format[m->pos_f], lens[i], (l = ft_strlen(lens[i]))))
-			m->place->len = lens[i];
+		if (!strncmp(m->format + m->pos_f, lens[i], (l = ft_strlen(lens[i]))))
+			m->place->len = i;
 	m->pos_f += l;
-	return (l)
+	return (l);
 }
 
 int		get_type(t_m *m)
@@ -209,15 +175,15 @@ int		get_placeholder(t_m *m)
 
 int		cpy(t_m *m)
 {
-	int			i;
-	int			j;
-	const char	*format;
+	unsigned int	i;
+	unsigned int	j;
+	const char		*format;
 
 	format = m->format;
 	i = m->pos_f;
 	j = m->pos_b;
 	while (format[i] && format[i] != '%' && j < MAX)
-		stuff->buf[j++] = format[i++];
+		m->buf[j++] = format[i++];
 	m->pos_f = i;
 	m->pos_b = j;
 	return ((format[i] == '%') ? 1 : 0);
@@ -227,21 +193,22 @@ int		cpy(t_m *m)
 **	prints the result
 */
 
-void	put(t_stuff *stuff)
+void	put(t_m *m)
 {
-	write(1, stuff->buf, stuff->bytes + 1);
+	write(1, m->buf, m->pos_b + 1);
 }
 
 /*
 **	cleanup
 */
 
-void	dstry(t_stuff *stuff)
+void	dstry(t_m *m)
 {
-	ft_memdel((void**)&stuff->buf);
-	ft_memdel((void**)&stuff->mods);
-	va_end(stuff->ap);
-	ft_memdel((void**)&stuff);
+	if (m->place)
+		ft_memdel((void**)&m->place);
+	ft_memdel((void**)&m->buf);
+	va_end(m->ap);
+	ft_memdel((void**)&m);
 } 
 
 /*
