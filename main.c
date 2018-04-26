@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 09:40:33 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/24 17:45:18 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/25 19:15:12 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ void 	s_test(char *str)
 	printf("printf:\t\t%s\n", str);
 	ft_printf("ft_printf:\t%s\n", str);
 	ft_putchar('\n');
-	printf("printf:\t\t%s\n", str);
-	ft_printf("ft_printf:\t%.*s\n", 3, str);
+
+	printf("printf precision wild card:\t\t%.*s\n", 3, str);
+	ft_printf("ft_printf precision wild card:\t%.*s\n", 3, str);
 	ft_putchar('\n');
 }
 

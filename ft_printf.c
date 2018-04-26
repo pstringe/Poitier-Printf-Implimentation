@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/16 17:05:08 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/25 18:39:33 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/26 16:12:41 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,7 @@ int		convert(t_m *m, char buf[MAX])
 	
 	if (!*con)
 		init_funcs(con);
-	//if (!*m->place->flags)
-	//	return(0);
-	else
-		m->pos_b += con[m->place->type](m, buf);
+	m->pos_b += con[m->place->type](m, buf);
 	ft_memdel((void**)&m->place);
 	return (1);
 }
@@ -83,8 +80,11 @@ int		get_flags(t_m *m)
 	int	i;
 
 	i = -1;
-	while ((f = is_flag(m->format[m->pos_f++])))
+	while ((f = is_flag(m->format[m->pos_f])))
+	{
 		m->place->flags[++i] = f - 1;
+		m->pos_f++;
+	}
 	return (1);
 }
 
@@ -99,6 +99,8 @@ int		get_width(t_m *m)
 		m->place->width = (w = va_arg(m->ap, int));
 	else if (m->format[m->pos_f] >= '0' && m->format[m->pos_f] <= '9')
 		m->place->width = (w = ft_atoi(m->format + m->pos_f));
+	else
+		return (0);
 	l = 1;
 	while (w /= 10 && !a)
 		l++;
@@ -114,6 +116,8 @@ int		get_precision(t_m *m)
 	p = 0;
 	if (m->format[m->pos_f] == '.')
 		m->place->precision = (m->format[++m->pos_f] == '*') ? va_arg(m->ap, int) : (p = ft_atoi(&m->format[m->pos_f]));
+	else
+		return (0);
 	l = 1;
 	while (p /= 10)
 		l++;
@@ -146,6 +150,7 @@ int		get_type(t_m *m)
 	while (types[++i])
 	if (m->format[m->pos_f] == types[i])
 		m->place->type = i;
+	m->pos_f++;
 	return (i);
 }
 
