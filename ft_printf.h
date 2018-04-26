@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 19:31:04 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/25 09:51:13 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/25 18:59:38 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include "libft.h"
 # include <stdarg.h>
 
-# define MAX 0xffffffff
+# define MAX 4096
 # define TYPES "sSpdDioOuUxXcC%"
 # define FLAGS "-+ 0#"
 # define NO_OF_TYPES 14
@@ -33,7 +33,6 @@ typedef struct	s_p
 typedef	struct	s_m
 {
 	const char	*format;
-	char		*buf;
 	int			pos_f;
 	int			pos_b;
 	va_list		ap;
@@ -42,13 +41,13 @@ typedef	struct	s_m
 
 int		ft_printf(const char *str, ...);
 
-int		str(t_m *m);
-int		poi(t_m *m);
-int		dig(t_m *m);
-int		oct(t_m *m);
-int		usi(t_m *m);
-int		hex(t_m *m);
-int		uch(t_m *m);
-int		uni(t_m *m);
-int		not(t_m *m);
+int		str(t_m *m, char buf[MAX]);
+int		poi(t_m *m, char buf[MAX]);
+int		dig(t_m *m, char buf[MAX]);
+int		oct(t_m *m, char buf[MAX]);
+int		usi(t_m *m, char buf[MAX]);
+int		hex(t_m *m, char buf[MAX]);
+int		uch(t_m *m, char buf[MAX]);
+int		uni(t_m *m, char buf[MAX]);
+int		not(t_m *m, char buf[MAX]);
 #endif

@@ -6,13 +6,13 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/16 17:05:08 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/25 10:25:10 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/25 18:39:33 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void 	init_funcs(int	(*con[NO_OF_TYPES])(t_m*))
+void 	init_funcs(int	(*con[NO_OF_TYPES])(t_m*, char buf[MAX]))
 {
 	con[0] = &str;
 	con[1] = &str;
@@ -41,25 +41,25 @@ void	init_lens(char	*lens[NO_OF_LENS])
 	lens[5] = "z";
 }
 
-void	init(t_m *m, const char *format)
+void	init(t_m *m, const char *format, char buf[MAX])
 {
 	m->pos_b = 0;
 	m->pos_f = 0;
 	m->format = format;
-	m->buf = ft_strnew(MAX);
+	ft_bzero(buf, MAX);
 	m->place = NULL;
 }
 
-int		convert(t_m *m)
+int		convert(t_m *m, char buf[MAX])
 {
-	static int	(*con[NO_OF_TYPES])(t_m*);
+	static int	(*con[NO_OF_TYPES])(t_m*, char buf[MAX]);
 	
 	if (!*con)
 		init_funcs(con);
 	//if (!*m->place->flags)
 	//	return(0);
 	else
-		m->pos_b += con[m->place->type](m);
+		m->pos_b += con[m->place->type](m, buf);
 	ft_memdel((void**)&m->place);
 	return (1);
 }
@@ -173,7 +173,7 @@ int		get_placeholder(t_m *m)
 **	either terminates, a '%' is encountered, or there is no more space in the buffer. 
 */
 
-int		cpy(t_m *m)
+int		cpy(t_m *m, char buf[MAX])
 {
 	unsigned int	i;
 	unsigned int	j;
@@ -183,7 +183,11 @@ int		cpy(t_m *m)
 	i = m->pos_f;
 	j = m->pos_b;
 	while (format[i] && format[i] != '%' && j < MAX)
-		m->buf[j++] = format[i++];
+	{
+		buf[j] = format[i];
+		i++;
+		j++;
+	}
 	m->pos_f = i;
 	m->pos_b = j;
 	return ((format[i] == '%') ? 1 : 0);
@@ -193,9 +197,9 @@ int		cpy(t_m *m)
 **	prints the result
 */
 
-void	put(t_m *m)
+void	put(t_m *m, char buf[MAX])
 {
-	write(1, m->buf, m->pos_b + 1);
+	write(1, buf, m->pos_b + 1);
 }
 
 /*
@@ -206,7 +210,6 @@ void	dstry(t_m *m)
 {
 	if (m->place)
 		ft_memdel((void**)&m->place);
-	ft_memdel((void**)&m->buf);
 	va_end(m->ap);
 	ft_memdel((void**)&m);
 } 
@@ -223,14 +226,15 @@ void	dstry(t_m *m)
 int		ft_printf(const char *format, ...)
 {
 	t_m		*m;
+	char	buf[MAX];
 
 	m = (t_m*)ft_memalloc(sizeof(t_m));
 	va_start(m->ap, format);
-	init(m, format);
-	while (cpy(m))
+	init(m, format, buf);
+	while (cpy(m, buf))
 		if (get_placeholder(m))
-			convert(m);
-	put(m);
+			convert(m, buf);
+	put(m, buf);
 	dstry(m);
 	return (0);
 }

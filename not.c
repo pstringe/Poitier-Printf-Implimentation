@@ -6,15 +6,15 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 07:36:36 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/25 09:48:57 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/25 18:45:13 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		not(t_m *m)
+int		not(t_m *m, char buf[MAX])
 {
-	if (!m)
+	if (!m && buf)
 		return (-1);
 	return (0);
 }

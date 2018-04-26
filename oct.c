@@ -6,15 +6,15 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 06:50:52 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/25 09:43:07 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/25 18:45:54 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		oct(t_m *m)
+int		oct(t_m *m, char buf[MAX])
 {
-	if (!m)
+	if (!m && buf)
 		return (-1);
 	return (0);
 }

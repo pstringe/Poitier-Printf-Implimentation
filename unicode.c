@@ -6,15 +6,15 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 06:54:55 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/25 09:48:22 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/25 18:44:14 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		uni(t_m *m)
+int		uni(t_m *m, char buf[MAX])
 {
-	if (!m)
+	if (!m && buf)
 		return (-1);
 	return (0);
 }

@@ -6,13 +6,13 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 08:16:09 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/25 10:04:42 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/25 18:34:16 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int 	str(t_m *m)
+int 	str(t_m *m, char buf[MAX])
 {
 	char *arg;
 	int i;
@@ -20,6 +20,6 @@ int 	str(t_m *m)
 	arg = va_arg(m->ap, char*);
 	i = -1;
 	while (arg[++i])
-		m->buf[m->pos_b++] = arg[i];
+		buf[m->pos_b++] = arg[i];
 	return (i);
 }
