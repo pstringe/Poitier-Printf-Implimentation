@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/16 17:05:08 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/26 16:12:41 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/26 17:03:23 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,19 @@ int		get_precision(t_m *m)
 	int	l;
 
 	p = 0;
-	if (m->format[m->pos_f] == '.')
-		m->place->precision = (m->format[++m->pos_f] == '*') ? va_arg(m->ap, int) : (p = ft_atoi(&m->format[m->pos_f]));
+	if (m->format[m->pos_f + 1] == '.')
+		if (m->format[++m->pos_f + 1] == '*')
+		{
+			m->place->precision = va_arg(m->ap, int);
+			m->pos_f++;
+		}
+		else if (m->format[m->pos_f + 1] >= '0' && m->format[m->pos_f + 1] <= '9')
+		{
+			p = ft_atoi(m->format + m->pos_f + 1);
+			m->place->precision = p;
+		}
+		else
+			return (-1);
 	else
 		return (0);
 	l = 1;
