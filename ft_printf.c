@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/16 17:05:08 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/26 17:40:19 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/26 18:00:20 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int		get_width(t_m *m)
 	if ((a = (m->format[m->pos_f + 1] == '*')))
 	{
 		m->place->width = (w = va_arg(m->ap, int));
-		m->pos_f++;
+		//m->pos_f++;
 	}
 	else if (m->format[m->pos_f + 1] >= '0' && m->format[m->pos_f + 1] <= '9')
 	{
