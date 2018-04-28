@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 06:49:20 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/27 11:27:19 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/27 13:56:27 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 int		dig(t_m *m, char buf[MAX])
 {
-	if (!m && buf)
-		return (-1);
-	return (0);
+	int		arg;
+
+	arg = va_arg((m->ap), long long);
+	ft_pn(arg, m, buf, 10);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 09:40:33 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/27 11:05:21 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/27 19:23:39 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,21 +51,23 @@ void	p_test(char **str)
 	printf("---------------\n-POINTER TESTS-\n---------------\n\n");
 	printf("printf:\t\t%p\n", str);
 	ft_printf("ft_printf:\t%p\n", str);
-	ft_putchar('\n');
+	ft_putendl("\n");
 }
 
 void	d_test(int n)
 {
+	printf("---------------\n-DIGIT TESTS-\n---------------\n\n");
 	printf("printf:\t\t%d\n", n);
 	ft_printf("ft_printf:\t%d\n", n);
 	ft_putchar('\n');
 }
 
-void	o_test(char **str)
+void	o_test(int n)
 {
-	printf("printf:\t\t%p\n", str);
-	ft_printf("ft_printf:\t%p\n", str);
-	ft_putchar('\n');
+	printf("---------------\n-OCTAL TESTS-\n---------------\n\n");
+	printf("printf:\t\t%o\n", n);
+	ft_printf("ft_printf:\t%o\n", n);
+	ft_putendl("\n");
 }
 
 void	us_test(char **str)
@@ -75,11 +77,12 @@ void	us_test(char **str)
 	ft_putchar('\n');
 }
 
-void	h_test(char **str)
+void	h_test(int n)
 {
-	printf("printf:\t\t%p\n", str);
-	ft_printf("ft_printf:\t%p\n", str);
-	ft_putchar('\n');
+	printf("---------------\n-HEX TESTS-\n---------------\n\n");
+	printf("printf:\t\t%x\n", n);
+	ft_printf("ft_printf:\t%x\n", n);
+	ft_putendl("\n");
 }
 
 void	uc_test(char **str)
@@ -107,9 +110,12 @@ int 	main(int argc, char **argv)
 		while (++i < argc)
 		{
 			str = argv[i];
-			s_test(str);
-			p_test(&str);
-			d_test(ft_atoi(str));
+			//s_test(str);
+			//p_test(&str);
+			//d_test(ft_atoi(str));
+			//h_test(ft_atoi(str));
+			o_test(ft_atoi(str));
+
 		}
 	}
 	return (0);

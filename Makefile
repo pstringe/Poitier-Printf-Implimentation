@@ -2,6 +2,10 @@ CC = gcc
 INC = ./libft
 NAME = ft_printf
 SRCS = ft_printf.c\
+	   algo.c\
+	   parse.c\
+	   init.c\
+	   help.c\
 	   main.c\
 	   string.c\
 	   pointer.c\
