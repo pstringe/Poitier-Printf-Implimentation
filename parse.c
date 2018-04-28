@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:45:41 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/27 19:26:39 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/28 12:56:18 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int		get_precision(t_m *m)
 }
 
 /*
-**	checks for length modifyer and stores
+**	checks for length modifier and stores
 */
 
 int		get_len(t_m *m)
@@ -104,6 +104,8 @@ int		get_len(t_m *m)
 	while (++i < NO_OF_LENS)
 		if (!strncmp(m->format + m->pos_f, lens[i], (l = ft_strlen(lens[i]))))
 			m->place->len = i;
+		else
+			l = 0;
 	m->pos_f += l;
 	return (l);
 }
@@ -118,10 +120,11 @@ int		get_type(t_m *m)
 	int	i;
 
 	types = TYPES;
+	m->pos_f = m->format[m->pos_f] == '%' ? m->pos_f + 1 : m->pos_f;
 	i = -1;
 	while (types[++i])
-	if (m->format[m->pos_f] == types[i])
-		m->place->type = i;
+		if (m->format[m->pos_f] == types[i])
+			m->place->type = i;
 	m->pos_f++;
 	return (i);
 }

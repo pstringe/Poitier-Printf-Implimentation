@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 19:31:04 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/27 19:22:47 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/28 13:53:40 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FT_PRINTF_H
 # include "libft.h"
 # include <stdarg.h>
-
+# include <assert.h> 
 # define MAX 4096
 # define TYPES "sSpdDioOuUxXcC%"
 # define FLAGS "-+ 0#"

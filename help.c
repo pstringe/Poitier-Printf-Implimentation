@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 13:54:16 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/27 19:24:54 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/28 14:41:23 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_pn(long long n, t_m *m, char *buf, int base)
 		ft_pn(tmp % base, m, buf, base);
 	}
 	else
-		buf[m->pos_b++] = tmp > 9 ? tmp - 10 + 'a' : tmp + '0';
+		buf[m->pos_b++] = tmp > 9 ? tmp - 10 + (m->place->type == 'X' ? 'A' : 'a') : tmp + '0';
 }
 
 /*

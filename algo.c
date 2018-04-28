@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 19:02:57 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/27 19:17:00 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/28 14:52:06 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@
 int		convert(t_m *m, char buf[MAX])
 {
 	static int	(*con[NO_OF_TYPES])(t_m*, char buf[MAX]);
-	
+	char		*types = TYPES;
+
 	if (!*con)
 		init_funcs(con);
 	m->pos_b += con[m->place->type](m, buf);
+	m->pos_f += m->format[m->pos_f] == types[m->place->type] ? 1 : 0;
 	ft_memdel((void**)&m->place);
 	return (1);
 }

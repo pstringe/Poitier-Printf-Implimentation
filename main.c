@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 09:40:33 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/27 19:23:39 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/28 12:52:37 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,11 @@ void	d_test(int n)
 	printf("---------------\n-DIGIT TESTS-\n---------------\n\n");
 	printf("printf:\t\t%d\n", n);
 	ft_printf("ft_printf:\t%d\n", n);
-	ft_putchar('\n');
+	ft_putendl("\n");
+
+	printf("printf:\t\t%.*d\n", 2, n);
+	ft_printf("ft_printf:\t%.*d\n", 2, n);
+	ft_putendl("\n");
 }
 
 void	o_test(int n)
@@ -67,6 +71,10 @@ void	o_test(int n)
 	printf("---------------\n-OCTAL TESTS-\n---------------\n\n");
 	printf("printf:\t\t%o\n", n);
 	ft_printf("ft_printf:\t%o\n", n);
+	ft_putendl("\n");
+	
+	printf("printf:\t\t%.*o\n", 2, n);
+	ft_printf("ft_printf:\t%.*o\n", 2, n);
 	ft_putendl("\n");
 }
 
@@ -82,6 +90,10 @@ void	h_test(int n)
 	printf("---------------\n-HEX TESTS-\n---------------\n\n");
 	printf("printf:\t\t%x\n", n);
 	ft_printf("ft_printf:\t%x\n", n);
+	ft_putendl("\n");
+
+	printf("printf:\t\t%.*x\n", 2, n);
+	ft_printf("ft_printf:\t%.*x\n", 2, n);
 	ft_putendl("\n");
 }
 
@@ -110,10 +122,10 @@ int 	main(int argc, char **argv)
 		while (++i < argc)
 		{
 			str = argv[i];
-			//s_test(str);
-			//p_test(&str);
-			//d_test(ft_atoi(str));
-			//h_test(ft_atoi(str));
+			s_test(str);
+			p_test(&str);
+			d_test(ft_atoi(str));
+			h_test(ft_atoi(str));
 			o_test(ft_atoi(str));
 
 		}
