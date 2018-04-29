@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 09:40:33 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/28 12:52:37 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/28 16:57:45 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,6 @@ void 	s_test(char *str)
 	printf("printf multiple: %6.3s%6.3s\n", str, str);
 	ft_printf("ft_printf multiple: %6.3s%6.3s\n", str, str);
 	ft_putendl("\n");
-
-	printf("printf multiple wildcard: %*.*s %*.*s\n", 6, 3, str, 6, 3, str);
-	ft_printf("ft_printf multiple wildcard: %*.*s %*.*s\n", 6, 3, str, 6, 3, str);
-	ft_putendl("\n");
-
 }
 
 void	p_test(char **str)
@@ -61,9 +56,38 @@ void	d_test(int n)
 	ft_printf("ft_printf:\t%d\n", n);
 	ft_putendl("\n");
 
-	printf("printf:\t\t%.*d\n", 2, n);
+	printf("printf precision:\t\t%.*d\n", 2, n);
 	ft_printf("ft_printf:\t%.*d\n", 2, n);
 	ft_putendl("\n");
+	
+	printf("printf width:\t\t%*d\n", 7, n);
+	ft_printf("ft_printf:\t%*d\n", 7, n);
+	ft_putendl("\n");
+	
+	printf("printf precision/width:\t\t%*.*d\n", 7, 10, n);
+	ft_printf("ft_printf precicion/width:\t%*.*d\n", 7, 10, n);
+	ft_putendl("\n");
+
+	printf("printf precision/width multiple:\t\t%*.*d%*.*d\n", 7, 10, n, 10, 7, n);
+	ft_printf("ft_printf precicion/width multiple:\t%*.*d%*.*d\n", 7, 10, n, 10, 7, n);
+	ft_putendl("\n");
+
+	printf("printf precision/width '0':\t\t%*.*d%0*.*d\n", 7, 10, n, 7, 10, n);
+	ft_printf("ft_printf precicion/width '0':\t%*.*d%0*.*d\n", 7, 10, n, 7, 10, n);
+	ft_putendl("\n");
+
+	printf("printf precision/width '-':\t\t%*.*d%-*.*d\n", 7, 10, n, 7, 10, n);
+	ft_printf("ft_printf precicion/width '-':\t%*.*d%-*.*d\n", 7, 10, n, 1, 10, n);
+	ft_putendl("\n");
+
+	printf("printf precision/width '+':\t\t%*.*d%+*.*d\n", 7, 10, n, 7, 10, n);
+	ft_printf("ft_printf precicion/width '+':\t%*.*d%+*.*d\n", 7, 10, n, 7, 10, n);
+	ft_putendl("\n");
+
+	printf("printf precision/width ' ':\t\t%*.*d% *.*d\n", 7, 10, n, 7, 10, n);
+	ft_printf("ft_printf precicion/width ' ':\t%*.*d% *.*d\n", 7, 10, n, 7, 10, n);
+	ft_putendl("\n");
+
 }
 
 void	o_test(int n)

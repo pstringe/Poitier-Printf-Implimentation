@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:45:41 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/28 12:56:18 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/28 17:26:48 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		get_width(t_m *m)
 	int		a;
 
 	w = 0;
-	if ((a = (m->format[m->pos_f + 1] == '*')))
+	if ((a = (m->format[m->pos_f + 1 ] == '*')))
 		m->place->width = (w = va_arg(m->ap, int));
 	else if (m->format[m->pos_f + 1] >= '0' && m->format[m->pos_f + 1] <= '9')
 	{
@@ -47,9 +47,11 @@ int		get_flags(t_m *m)
 {
 	int	f;
 	int	i;
+	int a;
 
+	a = m->format[m->pos_f] == '%' ? 1 : 0;
 	i = -1;
-	while ((f = is_flag(m->format[m->pos_f])))
+	while ((f = is_flag(m->format[m->pos_f + a])))
 	{
 		m->place->flags[++i] = f - 1;
 		m->pos_f++;
@@ -120,7 +122,7 @@ int		get_type(t_m *m)
 	int	i;
 
 	types = TYPES;
-	m->pos_f = m->format[m->pos_f] == '%' ? m->pos_f + 1 : m->pos_f;
+	m->pos_f = m->format[m->pos_f] == '%' || m->format[m->pos_f] == '*' ? m->pos_f + 1 : m->pos_f;
 	i = -1;
 	while (types[++i])
 		if (m->format[m->pos_f] == types[i])
