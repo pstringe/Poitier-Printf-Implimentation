@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 13:54:16 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/28 14:41:23 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/30 13:11:15 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ void	ft_pn(long long n, t_m *m, char *buf, int base)
 		ft_pn(tmp % base, m, buf, base);
 	}
 	else
-		buf[m->pos_b++] = tmp > 9 ? tmp - 10 + (m->place->type == 'X' ? 'A' : 'a') : tmp + '0';
+	{
+		m->place->type == 'X' ? 'A' : 'a';
+		buf[m->pos_b++] = tmp > 9 ? tmp - 10 + m->place->type : tmp + '0';
+	}
 }
 
 /*
@@ -42,7 +45,7 @@ void	ft_pn(long long n, t_m *m, char *buf, int base)
 int		is_flag(char c)
 {
 	int		i;
-	char 	*flags;
+	char	*flags;
 
 	flags = FLAGS;
 	i = -1;
@@ -71,4 +74,4 @@ void	dstry(t_m *m)
 		ft_memdel((void**)&m->place);
 	va_end(m->ap);
 	ft_memdel((void**)&m);
-} 
+}
