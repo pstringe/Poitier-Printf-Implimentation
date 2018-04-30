@@ -6,13 +6,13 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:41:06 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/27 18:44:50 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/30 13:19:21 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void 	init_funcs(int	(*con[NO_OF_TYPES])(t_m*, char buf[MAX]))
+void	init_funcs(int (*con[NO_OF_TYPES])(t_m*, char buf[MAX]))
 {
 	con[0] = &str;
 	con[1] = &str;
@@ -29,9 +29,9 @@ void 	init_funcs(int	(*con[NO_OF_TYPES])(t_m*, char buf[MAX]))
 	con[12] = &uch;
 	con[13] = &uni;
 	con[14] = &not;
-}	
+}
 
-void	init_lens(char	*lens[NO_OF_LENS])
+void	init_lens(char *lens[NO_OF_LENS])
 {
 	lens[0] = "hh";
 	lens[1] = "h";
