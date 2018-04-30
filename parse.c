@@ -6,11 +6,15 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:45:41 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/28 17:26:48 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/30 13:36:47 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#define S_W_N (m->format[m->pos_f + 1]>='0'&&m->format[m->pos_f + 1]<='9')
+#define I_P m->format[m->pos_f]=='%'
+#define I_W m->format[m->pos_f]== '*'
+#define N_P I_P || I_W ? m->pos_f+1 : m->pos_f
 
 /*
 **	checks for width parameter in placeholder or wildcard, and stores
@@ -18,13 +22,16 @@
 
 int		get_width(t_m *m)
 {
-	int 	w;
-	int 	l;
-	int		a;
+	int w;
+	int l;
+	int a;
 
 	w = 0;
-	if ((a = (m->format[m->pos_f + 1 ] == '*')))
-		m->place->width = (w = va_arg(m->ap, int));
+	if ((a = (m->format[m->pos_f + 1] == '*')))
+	{
+		w = va_arg(m->ap, int);
+		m->place->width = w;
+	}
 	else if (m->format[m->pos_f + 1] >= '0' && m->format[m->pos_f + 1] <= '9')
 	{
 		w = ft_atoi(m->format + m->pos_f + 1);
@@ -36,7 +43,7 @@ int		get_width(t_m *m)
 	while ((w /= 10) && !a)
 		l++;
 	m->pos_f += l;
-	return (l); 
+	return (l);
 }
 
 /*
@@ -67,6 +74,7 @@ int		get_precision(t_m *m)
 {
 	int	p;
 	int	l;
+	int t;
 
 	p = 0;
 	if (m->format[m->pos_f + 1] == '.')
@@ -75,7 +83,7 @@ int		get_precision(t_m *m)
 			m->place->precision = va_arg(m->ap, int);
 			m->pos_f++;
 		}
-		else if (m->format[m->pos_f + 1] >= '0' && m->format[m->pos_f + 1] <= '9')
+		else if (S_W_N)
 		{
 			p = ft_atoi(m->format + m->pos_f + 1);
 			m->place->precision = p;
@@ -118,11 +126,11 @@ int		get_len(t_m *m)
 
 int		get_type(t_m *m)
 {
-	char *types;
-	int	i;
+	char	*types;
+	int		i;
 
 	types = TYPES;
-	m->pos_f = m->format[m->pos_f] == '%' || m->format[m->pos_f] == '*' ? m->pos_f + 1 : m->pos_f;
+	m->pos_f = N_P;
 	i = -1;
 	while (types[++i])
 		if (m->format[m->pos_f] == types[i])
@@ -130,5 +138,3 @@ int		get_type(t_m *m)
 	m->pos_f++;
 	return (i);
 }
-
-
