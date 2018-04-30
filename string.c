@@ -6,18 +6,18 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 08:16:09 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/27 19:57:50 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/30 13:41:41 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int 	str(t_m *m, char buf[MAX])
+int		str(t_m *m, char buf[MAX])
 {
-	char *arg;
-	int i;
-	int	p;
-	int	w;
+	char	*arg;
+	int		i;
+	int		p;
+	int		w;
 
 	arg = va_arg(m->ap, char*);
 	p = !m->place->precision ? ft_strlen(arg) : m->place->precision;
