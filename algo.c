@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 19:02:57 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/28 14:52:06 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/30 13:15:04 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@
 int		convert(t_m *m, char buf[MAX])
 {
 	static int	(*con[NO_OF_TYPES])(t_m*, char buf[MAX]);
-	char		*types = TYPES;
+	char		*types;
 
+	types = TYPES;
 	if (!*con)
 		init_funcs(con);
 	m->pos_b += con[m->place->type](m, buf);
@@ -30,8 +31,8 @@ int		convert(t_m *m, char buf[MAX])
 }
 
 /*
-**	once a percent sign is encoutered, in cpy(), this function grabs and stores codes
-**	for the modifiers and flags that follow.
+**	once a percent sign is encoutered, in cpy(), this function grabs
+**	and stores codes for the modifiers and flags that follow.
 */
 
 int		get_placeholder(t_m *m)
@@ -49,8 +50,8 @@ int		get_placeholder(t_m *m)
 }
 
 /*
-**	this function copies the format string to the buffer byte by byte until it 
-**	either terminates, a '%' is encountered, or there is no more space in the buffer. 
+**	this function copies the format string to the buffer byte by byte until it
+**	either terminates, a '%' is encountered, or there is no more space.
 */
 
 int		cpy(t_m *m, char buf[MAX])
