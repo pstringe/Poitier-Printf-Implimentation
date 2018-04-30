@@ -6,15 +6,15 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 07:35:00 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/25 18:44:47 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/30 13:46:02 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
 int		usi(t_m *m, char buf[MAX])
-{	
-	if (!m && buf)	
+{
+	if (!m && buf)
 		return (-1);
 	return (0);
 }
