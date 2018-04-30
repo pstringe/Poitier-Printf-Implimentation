@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 06:28:44 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/27 11:37:48 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/30 13:39:22 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,21 @@
 
 char	*ft_itoab(uintmax_t n, int base)
 {
-	int 	i;
-	char 	*str;
+	int		i;
+	char	*str;
 
 	str = ft_strnew(12 + 1);
 	i = 12;
-	while(n)
+	while (n)
 	{
 		str[--i] = (n % base > 9) ? n % base - 10 + 'a' : n % base + '0';
-	  	n /= base;
+		n /= base;
 	}
 	return (str);
 }
 
 int		poi(t_m *m, char buf[MAX])
 {
-
 	uintmax_t	arg;
 	int			l;
 	char		*str;
