@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 19:31:04 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/28 17:33:27 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/04/30 13:07:29 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FT_PRINTF_H
 # include "libft.h"
 # include <stdarg.h>
-# include <assert.h> 
+# include <assert.h>
 # define MAX 4096
 # define TYPES "sSpdDioOuUxXcC%"
 # define FLAGS "-+ 0#"
@@ -43,55 +43,55 @@ typedef	struct	s_m
 **	main function
 */
 
-int		ft_printf(const char *str, ...);
+int				ft_printf(const char *str, ...);
 
 /*
 **	functions essential for the main operation of printf
 */
 
-int		cpy(t_m *m, char buf[MAX]);
-int		get_placeholder(t_m *m);
-int		convert(t_m *m, char buf[MAX]);
+int				cpy(t_m *m, char buf[MAX]);
+int				get_placeholder(t_m *m);
+int				convert(t_m *m, char buf[MAX]);
 
 /*
 **	initialization functions
 */
 
-void 	init_funcs(int	(*con[NO_OF_TYPES])(t_m*, char buf[MAX]));
-void	init_lens(char	*lens[NO_OF_LENS]);
-void	init(t_m *m, const char *format, char buf[MAX]);
+void			init_funcs(int	(*con[NO_OF_TYPES])(t_m*, char buf[MAX]));
+void			init_lens(char	*lens[NO_OF_LENS]);
+void			init(t_m *m, const char *format, char buf[MAX]);
 
 /*
 **	placeholder parsing functions
 */
 
-int		get_width(t_m *m);
-int		get_flags(t_m *m);
-int		get_precision(t_m *m);
-int		get_len(t_m *m);
-int		get_type(t_m *m);
+int				get_width(t_m *m);
+int				get_flags(t_m *m);
+int				get_precision(t_m *m);
+int				get_len(t_m *m);
+int				get_type(t_m *m);
 
 /*
 **	conversion functions
 */
 
-int		str(t_m *m, char buf[MAX]);
-int		poi(t_m *m, char buf[MAX]);
-int		dig(t_m *m, char buf[MAX]);
-int		oct(t_m *m, char buf[MAX]);
-int		usi(t_m *m, char buf[MAX]);
-int		hex(t_m *m, char buf[MAX]);
-int		uch(t_m *m, char buf[MAX]);
-int		uni(t_m *m, char buf[MAX]);
-int		not(t_m *m, char buf[MAX]);
+int				str(t_m *m, char buf[MAX]);
+int				poi(t_m *m, char buf[MAX]);
+int				dig(t_m *m, char buf[MAX]);
+int				oct(t_m *m, char buf[MAX]);
+int				usi(t_m *m, char buf[MAX]);
+int				hex(t_m *m, char buf[MAX]);
+int				uch(t_m *m, char buf[MAX]);
+int				uni(t_m *m, char buf[MAX]);
+int				not(t_m *m, char buf[MAX]);
 
 /*
 **	misc functions for checking, output, cleanup ect ...
 */
 
-void	ft_pn(long long n, t_m *m, char *buf, int base);
-int		is_flag(char c);
-void	put(t_m *m, char buf[MAX]);
-void	dstry(t_m *m);
+void			ft_pn(long long n, t_m *m, char *buf, int base);
+int				is_flag(char c);
+void			put(t_m *m, char buf[MAX]);
+void			dstry(t_m *m);
 
 #endif
