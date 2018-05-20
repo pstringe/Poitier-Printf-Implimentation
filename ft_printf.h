@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 19:31:04 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/30 13:07:29 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/05/20 15:26:13 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define NO_OF_TYPES 14
 # define NO_OF_LENS 6
 
+/*
 typedef struct	s_p
 {
 	int		flags[4];
@@ -38,6 +39,45 @@ typedef	struct	s_m
 	va_list		ap;
 	struct s_p	*place;
 }				t_m;
+*/
+
+typedef struct 	s_form
+{
+	const char 	*str;
+	size_t		len;
+}				t_form;
+
+typedef struct	s_arg
+{
+	size_t		pos;
+	size_t		len;
+	t_form		form;
+}				t_arg;
+
+typedef enum	e_lens
+{
+	NA, L, H, J, Z, LL, HH 
+}				t_lens;
+
+typedef struct	t_param
+{
+	t_form		form;
+	int			accs;
+	int			flgs;
+	size_t		wdth;
+	int			wdth_accs;
+	int			prcs;
+	t_lens 		mods;
+	char 		conv;
+	int			erro;
+	void 		*val;
+}
+
+typedef struct	s_hndl
+{
+	char		conv;
+	int			(*hndl)(t_parm, va_list);
+}				t_hndl;
 
 /*
 **	main function
