@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/16 17:05:08 by pstringe          #+#    #+#             */
-/*   Updated: 2018/05/22 14:37:31 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/05/23 15:05:31 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,49 +47,24 @@ t_param		len_mod_convert(t_param p)
 	return (t_param);
 }
 
-int		is_mod(const char c)
+int		get_num(const char *str, int sign, int *res, size_t *i)
 {
-	char mods = "hljz";
+	int nb;
+	int	ng;
 
-	while (*mods)
-	{
-		if (*mods == (char)c)
+	ng = (str[*i] == '-');
+	if (str[*i] == '-' || str[*i] == '+')
+		if (sign)
+			(*i)++;
+		else
 			return (1);
-		mods++;
-	}
-	if ((char)c == '0')
-		return (1);
-	return (0);
-}
-
-int		is_flag()
-{
-	char flags = "#0-+";
-
-	while (*mods)
+	nb = 0;
+	while (ft_isdigit(str[*i]))
 	{
-		if (*flags == (char)c)
-			return (1);
-		flags++;
+		nb = nb * 10 + (str[*i] - '0')
+			(*i)++;
 	}
-	if ((char)c == '0')
-		return (1);
-	return (0);
-} 
-
-int		is_prcs(const char c)
-{
-
-	char prcs = "$*.";
-
-	while (*prcs)
-	{
-		if (*prcs == (char)c)
-			return (1);
-		prcs++;
-	}
-	if ((char)c == '0')
-		return (1);
+	*result = (neg ? -nbr : nbr);
 	return (0);
 }
 
