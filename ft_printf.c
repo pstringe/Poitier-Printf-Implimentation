@@ -6,13 +6,13 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/16 17:05:08 by pstringe          #+#    #+#             */
-/*   Updated: 2018/05/23 15:05:31 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/05/24 07:43:41 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-t_param 	get_param(const char *str, size_t l)
+t_param		inint_param(const char *str, size_t l)
 {
 	t_param		p;
 	t_form 		f;
@@ -61,8 +61,8 @@ int		get_num(const char *str, int sign, int *res, size_t *i)
 	nb = 0;
 	while (ft_isdigit(str[*i]))
 	{
-		nb = nb * 10 + (str[*i] - '0')
-			(*i)++;
+		nb = nb * 10 + (str[*i] - '0');
+		(*i)++;
 	}
 	*result = (neg ? -nbr : nbr);
 	return (0);

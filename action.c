@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 14:47:42 by pstringe          #+#    #+#             */
-/*   Updated: 2018/05/22 15:55:49 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/05/23 15:28:52 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,63 @@ int		flgs(t_param *p, const char s, size_t *i)
 	}
 	return (1);
 }
+
 int		width(t_param *p, const char s, size_t *i)
 {
+	int w;
+	int pos;
+	if (pos = (str[*i] == '*'))
+		(*i)++;
+	if (get_num(str, 0, &w, i) && !pos)
+		return (1);
+	if (pos)
+	{
+		if (str[*i] == '$')
+			(*i)++;
+		else
+			return (1);
+		p->wdth_accs = w;
+	}
+	else
+		p->wdth = w;
+	return (0);
+}
 
+int		mods(t_param *p, const char s, size_t *i)
+{
+	t_mod m;
+
+	n = NA;
+	if (!is_mod(str[*i]))
+		return (0);
+	if (str[*i] = 'l')
+		if (str[*i + 1] == 'l' && ++(*i))
+			m = LL;
+		else
+			m = L;
+	else if (str[*i] = 'h')
+		if (str[*i + 1] == 'l' && ++(*i))
+			m = HH;
+		else
+			m = H;
+	else if (str[*i] == 'j')
+		m = J;
+	else if (str[*i] == 'z')
+		m = Z;
+	p->mods = m;
+	return ((*i)++ & 0);
+}
+
+int		precision(t_param *p, const char s, size_t *i)
+{
+	int p;
+	
+	p->prcs = -1;
+	if (str[*i] != '.')
+		return (0);
+	p->prcs = = 0;
+	if (get_num(s, 0, &p, i))
+		return (1);
+	p->prcs = p;
+	return (0);
 }

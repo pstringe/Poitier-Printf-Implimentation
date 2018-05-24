@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 14:44:24 by pstringe          #+#    #+#             */
-/*   Updated: 2018/05/22 14:52:30 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/05/24 08:23:51 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,9 @@ int		is_conv(const char c)
 	if ((char)c == '0')
 		return (1);
 	return (0);
+}
+
+int		is_valid(const char c)
+{
+	return (is_conv(c) || is_mod(c) || is_flag(c) || is_digit(c) || is_prcs(c));
 }

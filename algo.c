@@ -6,11 +6,73 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 19:02:57 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/30 13:15:04 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/05/24 08:01:58 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int 	transform(t_param, va_list list)
+{
+	static t_handle (handle[12]) = 
+	{
+		{.conv = 's', .handle = str},
+		{.conv = 'S', .handle = str},
+		{.conv = 'c', .handle = str},
+		{.conv = 'C', .handle = str},
+		{.conv = '%', .handle = none},
+		{.conv = 'd', .handle = num},
+		{.conv = 'o', .handle = num},
+		{.conv = 'O', .handle = num},
+		{.conv = 'u', .handle = num},
+		{.conv = 'U', .handle = num},
+		{.conv = 'x', .handle = num},
+		{.conv = 'X', .handle = num},
+		{.conv = 'c', .handle = chr},
+		{.conv = 'C', .handle = chr}
+	};
+	int		i;
+
+	if (p.err)
+		return (0);
+	i =-1;
+	while (++i < 12)
+		if (p.conv == h[i].conv)
+			return (hp[i].handle(p, list));
+	return (0);
+}
+/*
+** get a parameter from the format string	
+*/
+
+t_param		get_param(const char s)
+{
+	static int	(*h[6])(t_param *, const char *, size_t *) = 
+	{
+		access, flags, width, precision, mods, conversion 
+	}
+	t_param p;
+	size_t	i;
+	size_t	pos;
+
+	i = 0;
+	pos = 0;
+	p = init_param(str, len);
+	while (i < 6)
+	{
+		if ((*h[i])(&p, s + 1, &pos))
+		{
+			p.error = 1;
+			break ;
+		}
+		i++;
+	}
+	if (p.conv == 'i')
+		p.conv = 'd';
+	if (p.c == 'p')
+		p.mod = LL;
+	return (big_conv(p));
+}
 
 /*
 **	runs the given conversion given the placeholder data
