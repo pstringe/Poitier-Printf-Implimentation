@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:45:41 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/30 13:48:57 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/05/26 13:35:39 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int		get_flags(t_m *m)
 	i = -1;
 	while ((f = is_flag(m->format[m->pos_f + a])))
 	{
-		m->place->flags[++i] = f - 1;
+		m->place->flags |= (1 << (f - 1));
 		m->pos_f++;
 	}
 	return (1);

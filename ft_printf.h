@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 19:31:04 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/30 13:07:29 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/05/26 13:38:40 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,26 @@
 # define NO_OF_TYPES 14
 # define NO_OF_LENS 6
 
+/*
+**	define flags
+*/
+
+# define MINUS	1
+# define PLUS	(1 << 1)
+# define SPACE	(1 << 2)
+# define ZERO	(1 << 3)
+# define HASH	(1 << 4)
+/*
+**	define structs
+*/
+
 typedef struct	s_p
 {
-	int		flags[4];
-	int		width;
-	int		precision;
-	int		len;
-	int		type;
+	unsigned char	flags;
+	int				width;
+	int				precision;
+	int				len;
+	int				type;
 }				t_p;
 
 typedef	struct	s_m

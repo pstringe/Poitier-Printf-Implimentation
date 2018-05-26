@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 09:40:33 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/28 16:57:45 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/05/26 12:22:16 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,122 +16,124 @@
 void 	s_test(char *str)
 {
 	printf("--------------\n-STRING TESTS-\n--------------\n\n");
-	printf("printf:\t\t%s\n", str);
-	ft_printf("ft_printf:\t%s\n", str);
+	printf("A:\t%s\n", str);
+	ft_printf("B:\t%s\n", str);
 	ft_putendl("\n");
 	
-	printf("printf precision inline:\t%.3s\n", str);
-	ft_printf("ft_printf precision inline:\t%.3s\n", str);
+	printf("A:\t%.3s\n", str);
+	ft_printf("B:\t%.3s\n", str);
 	ft_putendl("\n");
 	
-	printf("printf precision wild card:\t%.*s\n", 3, str);
-	ft_printf("ft_printf precision wild card:\t%.*s\n", 3, str);
+	printf("A:\t%.*s\n", 3, str);
+	ft_printf("B:\t%.*s\n", 3, str);
 	ft_putendl("\n");
 
-	printf("printf field width inline: %6.3s\n", str);
-	ft_printf("ft_printf field width inline: %6.3s\n", str);
+	printf("A: %6.3s\n", str);
+	ft_printf("B: %6.3s\n", str);
 	ft_putendl("\n");
 
-	printf("printf field width wildcard: %*.3s\n", 6, str);
-	ft_printf("ft_printf field width wildcard: %*.3s\n", 6, str);
+	printf("A: %*.3s\n", 6, str);
+	ft_printf("B: %*.3s\n", 6, str);
 	ft_putendl("\n");
 
-	printf("printf multiple: %6.3s%6.3s\n", str, str);
-	ft_printf("ft_printf multiple: %6.3s%6.3s\n", str, str);
+	printf("A: %6.3s%6.3s\n", str, str);
+	ft_printf("B: %6.3s%6.3s\n", str, str);
 	ft_putendl("\n");
 }
 
 void	p_test(char **str)
 {
 	printf("---------------\n-POINTER TESTS-\n---------------\n\n");
-	printf("printf:\t\t%p\n", str);
-	ft_printf("ft_printf:\t%p\n", str);
+	printf("A:\t%p\n", str);
+	ft_printf("B:\t%p\n", str);
 	ft_putendl("\n");
 }
 
 void	d_test(int n)
 {
+	/*
 	printf("---------------\n-DIGIT TESTS-\n---------------\n\n");
-	printf("printf:\t\t%d\n", n);
-	ft_printf("ft_printf:\t%d\n", n);
+	printf("A:\t%d\n", n);
+	ft_printf("B:\t%d\n", n);
 	ft_putendl("\n");
 
-	printf("printf precision:\t\t%.*d\n", 2, n);
-	ft_printf("ft_printf:\t%.*d\n", 2, n);
+	printf("A:\t%.*d\n", 2, n);
+	ft_printf("B:\t%.*d\n", 2, n);
 	ft_putendl("\n");
 	
-	printf("printf width:\t\t%*d\n", 7, n);
-	ft_printf("ft_printf:\t%*d\n", 7, n);
+	printf("A:\t%*d\n", 7, n);
+	ft_printf("B:\t%*d\n", 7, n);
 	ft_putendl("\n");
 	
-	printf("printf precision/width:\t\t%*.*d\n", 7, 10, n);
-	ft_printf("ft_printf precicion/width:\t%*.*d\n", 7, 10, n);
+	printf("A:\t%*.*d\n", 7, 10, n);
+	ft_printf("B:\t%*.*d\n", 7, 10, n);
 	ft_putendl("\n");
 
-	printf("printf precision/width multiple:\t\t%*.*d%*.*d\n", 7, 10, n, 10, 7, n);
-	ft_printf("ft_printf precicion/width multiple:\t%*.*d%*.*d\n", 7, 10, n, 10, 7, n);
+	printf("A:\t%*.*d%*.*d\n", 7, 10, n, 10, 7, n);
+	ft_printf("B:\t%*.*d%*.*d\n", 7, 10, n, 10, 7, n);
 	ft_putendl("\n");
 
-	printf("printf precision/width '0':\t\t%*.*d%0*.*d\n", 7, 10, n, 7, 10, n);
-	ft_printf("ft_printf precicion/width '0':\t%*.*d%0*.*d\n", 7, 10, n, 7, 10, n);
+	printf("A:\t%*.*d%0*.*d\n", 7, 10, n, 7, 10, n);
+	ft_printf("B:\t%*.*d%0*.*d\n", 7, 10, n, 7, 10, n);
 	ft_putendl("\n");
 
-	printf("printf precision/width '-':\t\t%*.*d%-*.*d\n", 7, 10, n, 7, 10, n);
-	ft_printf("ft_printf precicion/width '-':\t%*.*d%-*.*d\n", 7, 10, n, 1, 10, n);
+	printf("A:\t%*.*d%-*.*d\n", 7, 10, n, 7, 10, n);
+	ft_printf("B:\t%*.*d%-*.*d\n", 7, 10, n, 1, 10, n);
 	ft_putendl("\n");
-
-	printf("printf precision/width '+':\t\t%*.*d%+*.*d\n", 7, 10, n, 7, 10, n);
-	ft_printf("ft_printf precicion/width '+':\t%*.*d%+*.*d\n", 7, 10, n, 7, 10, n);
+*/
+	printf("A:\t%*.*d%+*.*d\n", 7, 10, n, 7, 10, n);
+	ft_printf("B:\t%*.*d%+*.*d\n", 7, 10, n, 7, 10, n);
 	ft_putendl("\n");
-
-	printf("printf precision/width ' ':\t\t%*.*d% *.*d\n", 7, 10, n, 7, 10, n);
-	ft_printf("ft_printf precicion/width ' ':\t%*.*d% *.*d\n", 7, 10, n, 7, 10, n);
+/*
+	printf("A:\t%*.*d% *.*d\n", 7, 10, n, 7, 10, n);
+	ft_printf("B:\t%*.*d% *.*d\n", 7, 10, n, 7, 10, n);
 	ft_putendl("\n");
+	*/
 
 }
 
 void	o_test(int n)
 {
 	printf("---------------\n-OCTAL TESTS-\n---------------\n\n");
-	printf("printf:\t\t%o\n", n);
-	ft_printf("ft_printf:\t%o\n", n);
+	printf("A:\t%o\n", n);
+	ft_printf("B:\t%o\n", n);
 	ft_putendl("\n");
 	
-	printf("printf:\t\t%.*o\n", 2, n);
-	ft_printf("ft_printf:\t%.*o\n", 2, n);
+	printf("A:\t%.*o\n", 2, n);
+	ft_printf("B:\t%.*o\n", 2, n);
 	ft_putendl("\n");
 }
 
 void	us_test(char **str)
 {
-	printf("printf:\t\t%p\n", str);
-	ft_printf("ft_printf:\t%p\n", str);
+	printf("A:\t%p\n", str);
+	ft_printf("B:\t%p\n", str);
 	ft_putchar('\n');
 }
 
 void	h_test(int n)
 {
 	printf("---------------\n-HEX TESTS-\n---------------\n\n");
-	printf("printf:\t\t%x\n", n);
-	ft_printf("ft_printf:\t%x\n", n);
+	printf("A:\t%x\n", n);
+	ft_printf("B:\t%x\n", n);
 	ft_putendl("\n");
 
-	printf("printf:\t\t%.*x\n", 2, n);
-	ft_printf("ft_printf:\t%.*x\n", 2, n);
+	printf("A:\t%.*x\n", 2, n);
+	ft_printf("B:\t%.*x\n", 2, n);
 	ft_putendl("\n");
 }
 
 void	uc_test(char **str)
 {
-	printf("printf:\t\t%p\n", str);
-	ft_printf("ft_printf:\t%p\n", str);
+	printf("A:\t%p\n", str);
+	ft_printf("B:\t%p\n", str);
 	ft_putchar('\n');
 }
 
 void	nt_test(char **str)
 {
-	printf("printf:\t\t%p\n", str);
-	ft_printf("ft_printf:\t%p\n", str);
+	printf("A:\t%p\n", str);
+	ft_printf("B:\t%p\n", str);
 	ft_putchar('\n');
 }
 
@@ -146,11 +148,11 @@ int 	main(int argc, char **argv)
 		while (++i < argc)
 		{
 			str = argv[i];
-			s_test(str);
-			p_test(&str);
+			//s_test(str);
+			//p_test(&str);
 			d_test(ft_atoi(str));
-			h_test(ft_atoi(str));
-			o_test(ft_atoi(str));
+			//h_test(ft_atoi(str));
+			//o_test(ft_atoi(str));
 
 		}
 	}
