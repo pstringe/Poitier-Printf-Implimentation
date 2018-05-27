@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 13:54:16 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/30 13:52:26 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/05/26 15:32:36 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 **	converts numbers to base and places in buffer
 */
 
-void	ft_pn(long long n, t_m *m, char *buf, int base)
+void	ft_pn(long long n, char *buf, int type, int *i, int base)
 {
 	long long	tmp;
 	int			c;
@@ -25,17 +25,17 @@ void	ft_pn(long long n, t_m *m, char *buf, int base)
 	if (tmp < 0)
 	{
 		tmp = -tmp;
-		buf[m->pos_b++] = '-';
+		buf[(*i)++] = '-';
 	}
 	if (tmp >= base)
 	{
-		ft_pn(tmp / base, m, buf, base);
-		ft_pn(tmp % base, m, buf, base);
+		ft_pn(tmp / base, buf, type, i, base);
+		ft_pn(tmp % base, buf, type, i, base);
 	}
 	else
 	{
-		c = m->place->type == 'X' ? 'A' : 'a';
-		buf[m->pos_b++] = tmp > 9 ? tmp - 10 + c : tmp + '0';
+		c = type == 'X' ? 'A' : 'a';
+		buf[(*i)++] = tmp > 9 ? tmp - 10 + c : tmp + '0';
 	}
 }
 

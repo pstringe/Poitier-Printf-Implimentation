@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 19:31:04 by pstringe          #+#    #+#             */
-/*   Updated: 2018/05/26 13:38:40 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/05/26 15:31:17 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int				not(t_m *m, char buf[MAX]);
 **	misc functions for checking, output, cleanup ect ...
 */
 
-void			ft_pn(long long n, t_m *m, char *buf, int base);
+void			ft_pn(long long n, char *buf, int type, int *i, int base);
 int				is_flag(char c);
 void			put(t_m *m, char buf[MAX]);
 void			dstry(t_m *m);

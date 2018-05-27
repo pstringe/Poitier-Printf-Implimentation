@@ -8,14 +8,12 @@ SRCS = ft_printf.c\
 	   help.c\
 	   main.c\
 	   string.c\
+	   digit.c\
 	   pointer.c\
 	   uch.c\
-	   digit.c\
-	   hexadecimal.c\
 	   unicode.c\
 	   usi.c\
-	   not.c\
-	   oct.c
+	   not.c
 OBJS = $(patsubst %.c, %.o, $(SRCS))
 LIBD = -L$(INC) -lft
 CFLAGS = -g -Wall -Werror -Wextra -I$(INC) 
