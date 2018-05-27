@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 09:40:33 by pstringe          #+#    #+#             */
-/*   Updated: 2018/05/26 17:26:33 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/05/27 14:26:02 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	d_test(int n)
 	printf("A:\t%*.*d%-*.*d\n", 7, 10, n, 7, 10, n);
 	ft_printf("B:\t%*.*d%-*.*d\n", 7, 10, n, 1, 10, n);
 	ft_putendl("\n");
+	
 	printf("A:\t%*.*d%+*.*d\n", 7, 10, n, 7, 10, n);
 	ft_printf("B:\t%*.*d%+*.*d\n", 7, 10, n, 7, 10, n);
 	ft_putendl("\n");
@@ -145,8 +146,8 @@ int 	main(int argc, char **argv)
 		while (++i < argc)
 		{
 			str = argv[i];
-			//s_test(str);
-			//p_test(&str);
+			s_test(str);
+			p_test(&str);
 			d_test(ft_atoi(str));
 			h_test(ft_atoi(str));
 			o_test(ft_atoi(str));
