@@ -1,51 +1,83 @@
-CC = gcc
-INC = ./libft
-NAME = ft_printf
-SRCS = ft_printf.c\
-	   algo.c\
-	   parse.c\
-	   init.c\
-	   help.c\
-	   main.c\
-	   string.c\
-	   digit.c\
-	   pointer.c\
-	   uch.c\
-	   unicode.c\
-	   usi.c\
-	   not.c
-OBJS = $(patsubst %.c, %.o, $(SRCS))
-LIBD = -L$(INC) -lft
-CFLAGS = -g -Wall -Werror -Wextra -I$(INC) 
-OFLAGS = -o $(NAME) $(OBJS) $(LIBD)
-DSRCS = $(SRCS)
-DFLAGS = $(CFLAGS) -g $(LIBD) $(DSRCS) -o
-DNAME = $(NAME)_debug
-DOBJS = $(patsubst %.c, %.o, $(DSRCS))
+NAME = libftprintf.a
+TEST = ft_printf
+MAIN = main.o
+DNAME = debug
+SRCS_DIR = ./srcs/
+INCLUDES = ./includes/
+RM = /bin/rm -f
 
-all: $(NAME)
+FILES = ft_printf\
+	   algo\
+	   parse\
+	   init\
+	   help\
+	   string\
+	   digit\
+	   pointer\
+	   uch\
+	   unicode\
+	   usi\
+	   not
 
-libft.a : ./libft/Makefile
-	make -C ./libft/
-$(NAME): libft.a $(OBJS)
-	$(CC) $(OFLAGS)
+CFILES = $(patsubst %, $(SRCS_DIR)%.c, $(FILES))
+OFILES = $(patsubst %, %.o, $(FILES))
+CFLAGS = -Wall -Wextra -Werror 
 
-$(OBJS): $(SRCS)
-	$(CC) $(CFLAGS) -c $(SRCS)
-	echo "successful object compilation"
+#libft
+LFT = ./libft/
+LFT_FILES = ft_putchar\
+			ft_is_whitespace\
+			ft_strchr\
+			ft_putstr\
+		   	ft_strlen\
+		   	ft_strdup\
+		   	ft_strjoin \
+			ft_atoi\
+			ft_bzero\
+			ft_memalloc\
+			ft_memcpy\
+			ft_memdel\
+			ft_memset\
+			ft_strcpy\
+			ft_strnew
 
-clean:
-	rm -f $(OBJS)
+LFT_CFILES = $(patsubst %, $(LFT)%.c, $(LFT_FILES))
+LFT_OFILES = $(patsubst %, %.o, $(LFT_FILES))
+LFT_LIB = $(addprefix $(LFT), ft.a)
+LFT_INC = -I $(LFT)
 
-fclean: clean
-	make fclean -C ./libft/
-	rm -f $(NAME)
-	rm -f $(DNAME)
-	rm -rf $(DNAME).dSYM
-re: fclean
-	make
+all: $(LFT_LIB) $(NAME)
+test: $(LFT_LIB) $(TEST)
 debug: $(DNAME)
 
-$(DNAME): fclean libft.a
-	$(CC) $(DFLAGS) $(DNAME)
-	lldb $(DNAME) $(DARGS)
+$(LFT_LIB):
+	@make -C $(LFT)
+
+$(OFILES):
+	@gcc $(CFLAGS) -c -I$(INCLUDES) $(LFT_INC) $(LFT_CFILES) $(CFILES)
+$(MAIN): srcs/main.c
+	@gcc $(CFLAGS) -c -I$(INCLUDES) $(LFT_INC) srcs/main.c
+$(DNAME): fclean
+	@gcc $(CFLAGS) -g -I $(INCLUDES) $(LFT_INC) $(LFT_CFILES) $(CFILES) srcs/main.c -o debug
+
+$(NAME): $(OFILES)
+	@ar rc $(NAME) $(OFILES) $(LFT_OFILES)
+	@ranlib $(NAME)
+$(TEST): $(MAIN) $(OFILES)
+	@gcc -g $(MAIN) $(OFILES) $(LFT_OFILES) -o $(TEST)
+
+clean:
+	@make -C $(LFT) clean
+	@$(RM) $(OFILES)
+	@$(RM) $(LFT_OFILES)
+	@$(RM) main.o
+fclean: clean
+	@make -C $(LFT) fclean
+	@$(RM) $(NAME)
+	@$(RM) $(TEST)
+	@$(RM) $(DNAME)
+	@$(RM) -rf $(DNAME).dSYM
+
+re: fclean all
+
+.PHONY: all clean fclean re

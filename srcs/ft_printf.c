@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/16 17:05:08 by pstringe          #+#    #+#             */
-/*   Updated: 2018/04/30 12:59:36 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/05/28 11:04:33 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 int		ft_printf(const char *format, ...)
 {
 	t_m		*m;
+	size_t 	size;
 	char	buf[MAX];
+
 
 	m = (t_m*)ft_memalloc(sizeof(t_m));
 	va_start(m->ap, format);
@@ -24,6 +26,7 @@ int		ft_printf(const char *format, ...)
 		if (get_placeholder(m))
 			convert(m, buf);
 	put(m, buf);
+	size = m->pos_b;
 	dstry(m);
-	return (0);
+	return (size);
 }

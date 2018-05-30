@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 13:54:16 by pstringe          #+#    #+#             */
-/*   Updated: 2018/05/26 15:32:36 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/05/28 11:08:42 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int		is_flag(char c)
 
 void	put(t_m *m, char buf[MAX])
 {
-	write(1, buf, m->pos_b + 1);
+	write(1, buf, m->pos_b);
 }
 
 /*
