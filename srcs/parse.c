@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:45:41 by pstringe          #+#    #+#             */
-/*   Updated: 2018/05/26 13:35:39 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/05/29 19:15:55 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,9 @@ int		get_type(t_m *m)
 
 	types = TYPES;
 	m->pos_f = N_P;
+	if (!(I_W || I_W))
+		while (m->format[m->pos_f] >= '0' && m->format[m->pos_f] <= '9')
+			m->pos_f++;
 	i = -1;
 	while (types[++i])
 		if (m->format[m->pos_f] == types[i])
