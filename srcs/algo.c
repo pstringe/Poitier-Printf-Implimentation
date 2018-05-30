@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 19:02:57 by pstringe          #+#    #+#             */
-/*   Updated: 2018/05/28 11:03:23 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/05/30 16:14:03 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int		get_placeholder(t_m *m)
 
 	place = ft_memalloc(sizeof(t_p));
 	m->place = place;
+	m->place->start = m->pos_f;
 	get_flags(m);
 	get_width(m);
 	get_precision(m);

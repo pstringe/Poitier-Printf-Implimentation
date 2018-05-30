@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:45:41 by pstringe          #+#    #+#             */
-/*   Updated: 2018/05/29 19:15:55 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/05/30 16:16:06 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 #define I_P m->format[m->pos_f]=='%'
 #define I_W m->format[m->pos_f]== '*'
 #define N_P I_P || I_W ? m->pos_f+1 : m->pos_f
+
+void 	skip_whitespace(t_m *m)
+{
+	while (ft_is_whitespace(m->format[m->pos_f]))
+		m->pos_f++;
+}
 
 /*
 **	checks for width parameter in placeholder or wildcard, and stores
@@ -26,6 +32,7 @@ int		get_width(t_m *m)
 	int l;
 	int a;
 
+	skip_whitespace(m);
 	w = 0;
 	if ((a = (m->format[m->pos_f + 1] == '*')))
 	{
@@ -43,6 +50,7 @@ int		get_width(t_m *m)
 	while ((w /= 10) && !a)
 		l++;
 	m->pos_f += l;
+	skip_whitespace(m);
 	return (l);
 }
 
@@ -129,8 +137,13 @@ int		get_type(t_m *m)
 	int		i;
 
 	types = TYPES;
+	if (I_P && m->place->start != m->pos_f)
+	{
+		m->place->type = 14;
+		return (1);
+	}
 	m->pos_f = N_P;
-	if (!(I_W || I_W))
+	if (!(I_W || I_P))
 		while (m->format[m->pos_f] >= '0' && m->format[m->pos_f] <= '9')
 			m->pos_f++;
 	i = -1;

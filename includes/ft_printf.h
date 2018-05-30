@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 19:31:04 by pstringe          #+#    #+#             */
-/*   Updated: 2018/05/26 15:31:17 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/05/30 16:12:57 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 
 typedef struct	s_p
 {
+	int				start;
 	unsigned char	flags;
 	int				width;
 	int				precision;
