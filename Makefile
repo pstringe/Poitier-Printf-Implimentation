@@ -63,7 +63,7 @@ $(DNAME): fclean
 $(NAME): $(OFILES)
 	@ar rc $(NAME) $(OFILES) $(LFT_OFILES)
 	@ranlib $(NAME)
-$(TEST): $(MAIN) $(OFILES)
+$(TEST): fclean $(MAIN) $(OFILES)
 	@gcc -g $(MAIN) $(OFILES) $(LFT_OFILES) -o $(TEST)
 
 clean:
