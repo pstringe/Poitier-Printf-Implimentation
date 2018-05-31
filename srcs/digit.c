@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 06:49:20 by pstringe          #+#    #+#             */
-/*   Updated: 2018/05/30 17:09:41 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/05/30 17:23:19 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ int 	get_base(t_m *m)
 		return (10);
 	if (m->place->type == 4)
 		return (10);
-	if (m->place->type == 5)
-		return (8);
 	if (m->place->type == 6)
 		return (8);
-	if (m->place->type == 9)
-		return (16);
+	if (m->place->type == 7)
+		return (8);
 	if (m->place->type == 10)
+		return (16);
+	if (m->place->type == 11)
 		return (16);
 	return (0);
 }
