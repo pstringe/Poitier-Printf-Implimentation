@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:45:41 by pstringe          #+#    #+#             */
-/*   Updated: 2018/05/30 16:16:06 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/05/31 15:21:01 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,12 +118,12 @@ int		get_len(t_m *m)
 
 	init_lens(lens);
 	i = -1;
-	while (++i < NO_OF_LENS)
-		if (!strncmp(m->format + m->pos_f, lens[i], (l = ft_strlen(lens[i]))))
+	while (++i < NO_OF_LENS && m->place->len < 0)
+		if (!ft_strncmp(m->format + m->pos_f + 1, lens[i], (l = ft_strlen(lens[i]))))
 			m->place->len = i;
 		else
 			l = 0;
-	m->pos_f += l;
+	m->pos_f += l + 1;
 	return (l);
 }
 

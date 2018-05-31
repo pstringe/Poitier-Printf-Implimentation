@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:41:06 by pstringe          #+#    #+#             */
-/*   Updated: 2018/05/29 17:09:48 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/05/31 15:03:04 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	init_lens(char *lens[NO_OF_LENS])
 	lens[3] = "ll";
 	lens[4] = "j";
 	lens[5] = "z";
-}
+}	
 
 void	init(t_m *m, const char *format, char buf[MAX])
 {

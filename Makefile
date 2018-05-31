@@ -39,6 +39,7 @@ LFT_FILES = ft_putchar\
 			ft_memdel\
 			ft_memset\
 			ft_strcpy\
+			ft_strncmp\
 			ft_strnew
 
 LFT_CFILES = $(patsubst %, $(LFT)%.c, $(LFT_FILES))
