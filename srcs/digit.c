@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 06:49:20 by pstringe          #+#    #+#             */
-/*   Updated: 2018/05/31 12:19:13 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/05/31 15:57:48 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,11 @@ void 	num_wdth(char buf[100], int wd, int flags, int *neg, int *i)
 	else if (w && (flags & MINUS))
 		ft_memcpy(buf + ft_strlen(buf), w, wd - 1);
 	*i += wd - l;
+}
+
+t_arg 	*get_arg()
+{
+
 }
 
 int		dig(t_m *m, char buf[MAX])
