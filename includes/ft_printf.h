@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 19:31:04 by pstringe          #+#    #+#             */
-/*   Updated: 2018/05/31 15:59:05 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/02 18:34:46 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,14 @@
 **	define structs
 */
 
-typedef struct 	s_arg
+typedef struct 	s_num
 {
-	int					type;
-	int					sign;
-	signed char			dhh;
-	short				dh;
-	long				dl;
-	long long			dll;
-	intmax_t			dj;
-	unsigned char		uhh;
-	unsigned short		uh;
-	unsigned long		ul;
-	unsigned long long	ull;
-	uintmax_t			uj;
-
-}				t_arg;
+	int		base;
+	int 	idx;
+	char	b_conv[100];
+	int 	neg;
+	int		arg;
+}				t_num;
 
 typedef struct	s_p
 {
