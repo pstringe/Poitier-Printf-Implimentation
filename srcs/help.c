@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 13:54:16 by pstringe          #+#    #+#             */
-/*   Updated: 2018/05/30 17:28:35 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/02 19:43:12 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,40 @@
 **	converts numbers to base and places in buffer
 */
 
-void	ft_pn(long long n, char *buf, int type, int *i, int base)
+void	ft_spn(intmax_t nb, t_num *n, t_m *m)
 {
-	long long	tmp;
 	int			c;
 
-	tmp = n;
-	if (tmp < 0)
+	if (nb < 0)
 	{
-		tmp = -tmp;
-		buf[(*i)++] = '-';
+		nb = -nb;
+		n->sign = -1;
 	}
-	if (tmp >= base)
+	if (nb >= (intmax_t)n->base)
 	{
-		ft_pn(tmp / base, buf, type, i, base);
-		ft_pn(tmp % base, buf, type, i, base);
+		ft_spn(nb / n->base, n, m);
+		ft_spn(nb % n->base, n, m);
 	}
 	else
 	{
-		c = (type == 11) ? 'A' : 'a';
-		buf[(*i)++] = tmp > 9 ? tmp - 10 + c : tmp + '0';
+		c = (m->place->type == 11) ? 'A' : 'a';
+		n->b_conv[(n->idx)++] = nb > 9 ? nb - 10 + c : nb + '0';
+	}
+}
+
+void	ft_upn(uintmax_t nb, t_num *n, t_m *m)
+{
+	int			c;
+
+	if (nb >= (uintmax_t)n->base)
+	{
+		ft_upn(nb / n->base, n, m);
+		ft_upn(nb % n->base, n, m);
+	}
+	else
+	{
+		c = (m->place->type == 11) ? 'A' : 'a';
+		n->b_conv[(n->idx)++] = nb > 9 ? nb - 10 + c : nb + '0';
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 19:31:04 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/02 18:34:46 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/02 19:39:41 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 typedef struct 	s_num
 {
 	int		base;
+	int		sign;
 	int 	idx;
 	char	b_conv[100];
 	int 	neg;
@@ -113,7 +114,8 @@ int				not(t_m *m, char buf[MAX]);
 **	misc functions for checking, output, cleanup ect ...
 */
 
-void			ft_pn(long long n, char *buf, int type, int *i, int base);
+void			ft_spn(intmax_t nb, t_num *n, t_m *m);
+void			ft_upn(uintmax_t nb, t_num *n, t_m *m);
 int				is_flag(char c);
 void			put(t_m *m, char buf[MAX]);
 void			dstry(t_m *m);
