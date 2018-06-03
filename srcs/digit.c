@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 06:49:20 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/02 18:35:44 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/02 19:08:45 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,48 @@ void 	num_wdth(char buf[100], int wd, int flags, int *neg, int *i)
 	*i += wd - l;
 }
 
+void	get_num (t_m *m, t_num *n)
+{
+	int type;
+
+	type = m->place->type;
+	if (type == 3 || type == 4 || type == 5)
+		signed_conversion(m, n);
+	else if (type == 6 || type == 7 || type == 11)
+		unsigned_conversion(m, n);
+}
+
+void 	signed_conversions(t_m *m. t_num *n)
+{
+	if (m->place->len == 0)
+		ft_spn((intmax_t)va_arg((m->ap), int), n);
+	else if (m->place->len == 1)
+		ft_spn((intmax_t)va_arg((m->ap), short), n);
+	else if (m->place->len == 2)
+		ft_spn((intmax_t)va_arg((m->ap), long), n);
+	else if (m->place->len == 3)
+		ft_spn((intmax_t)va_arg((m->ap), long long), n);
+	else if (m->place->len == 4)
+		ft_spn((intmax_t)va_arg((m->ap), intmax_t), n);
+	else if (m->place->len == 5)
+		ft_spn((intmax_t)va_arg((m->ap), size_t), n);
+}
+
+void 	signed_conversions(t_m *m. t_num *n)
+{
+	if (m->place->len == 0)
+		ft_upn((uintmax_t)va_arg((m->ap), unsigned int), n);
+	else if (m->place->len == 1)
+		ft_upn((uintmax_t)va_arg((m->ap), unsigned short), n);
+	else if (m->place->len == 2)
+		ft_upn((uintmax_t)va_arg((m->ap), unsigned long), n);
+	else if (m->place->len == 3)
+		ft_upn((uintmax_t)va_arg((m->ap), unsigned long long), n);
+	else if (m->place->len == 4)
+		ft_upn((uintmax_t)va_arg((m->ap), unsigned intmax_t), n);
+	else if (m->place->len == 5)
+		ft_upn((uintmax_t)va_arg((m->ap), size_t), n);
+}
 int		dig(t_m *m, char buf[MAX])
 {
 	t_num 		n;
@@ -96,6 +138,8 @@ int		dig(t_m *m, char buf[MAX])
 	//int			neg;
 	//int			arg;
 
+
+	/*
 	n.idx = 0;	
 	n.base = get_base(m);
 	ft_bzero(n.b_conv, 100);
@@ -114,5 +158,6 @@ int		dig(t_m *m, char buf[MAX])
 		buf[m->pos_b++] = '-';
 	if (n.neg < 0 && (m->place->type == 10 || m->place->type <= 11))
 		buf[m->pos_b++] = m->place->type == 10 ? 'f' : 'F';
+	*/
 	return(replace(m, buf, n.b_conv));
 }
