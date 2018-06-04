@@ -17,6 +17,9 @@ FILES = ft_printf\
 	   uch\
 	   unicode\
 	   usi\
+	   num_extract\
+	   num_convert\
+	   num_mod\
 	   not
 
 CFILES = $(patsubst %, $(SRCS_DIR)%.c, $(FILES))

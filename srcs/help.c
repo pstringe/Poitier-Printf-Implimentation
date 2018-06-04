@@ -6,51 +6,24 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 13:54:16 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/02 19:43:12 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/04 16:21:26 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
 /*
-**	converts numbers to base and places in buffer
+** writes resulting conversion to bufffer
 */
 
-void	ft_spn(intmax_t nb, t_num *n, t_m *m)
+int		replace(t_m *m, char buf[MAX], char *conv)
 {
-	int			c;
-
-	if (nb < 0)
-	{
-		nb = -nb;
-		n->sign = -1;
-	}
-	if (nb >= (intmax_t)n->base)
-	{
-		ft_spn(nb / n->base, n, m);
-		ft_spn(nb % n->base, n, m);
-	}
-	else
-	{
-		c = (m->place->type == 11) ? 'A' : 'a';
-		n->b_conv[(n->idx)++] = nb > 9 ? nb - 10 + c : nb + '0';
-	}
-}
-
-void	ft_upn(uintmax_t nb, t_num *n, t_m *m)
-{
-	int			c;
-
-	if (nb >= (uintmax_t)n->base)
-	{
-		ft_upn(nb / n->base, n, m);
-		ft_upn(nb % n->base, n, m);
-	}
-	else
-	{
-		c = (m->place->type == 11) ? 'A' : 'a';
-		n->b_conv[(n->idx)++] = nb > 9 ? nb - 10 + c : nb + '0';
-	}
+	int	i;
+	i = -1;
+	while (conv[++i] && m->pos_b + i < MAX)
+		buf[m->pos_b + i] = conv[i];
+	m->pos_b += i;
+	return (0);
 }
 
 /*
