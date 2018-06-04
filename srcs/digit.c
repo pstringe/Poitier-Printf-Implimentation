@@ -6,11 +6,15 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 06:49:20 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/03 15:47:35 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/04 14:30:39 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+/*
+** writes resulting conversion to bufffer
+*/
 
 int		replace(t_m *m, char buf[MAX], char *conv)
 {
@@ -21,6 +25,10 @@ int		replace(t_m *m, char buf[MAX], char *conv)
 	m->pos_b += i;
 	return (0);
 }
+
+/*
+**	obtains the number's base depending on type
+*/
 
 void 	get_base(t_m *m, t_num *n)
 {
@@ -37,6 +45,10 @@ void 	get_base(t_m *m, t_num *n)
 	if (m->place->type == 11)
 		n->base = 16;
 }
+
+/*
+**	edits number string to accomodate precision specification
+*/
 
 void	num_prcs(t_num *n, int pr)
 {
@@ -57,6 +69,10 @@ void	num_prcs(t_num *n, int pr)
 	n->idx += pr - l;
 }
 
+/*
+**	determines what charater should be prepended to the number string
+*/
+
 int 	get_signchar(t_num *n, int flags)
 {
 	if (n->neg < 0)
@@ -67,6 +83,11 @@ int 	get_signchar(t_num *n, int flags)
 		return ('+');
 	return (0);
 }
+
+/*
+**	edits string to accomadte sign and any other extra characters needed for flags
+**	while complying with width specification
+*/
 
 void 	num_wdth(t_num *n, int wd, int flags)
 {
@@ -109,6 +130,10 @@ void 	num_wdth(t_num *n, int wd, int flags)
 	n->idx += wd - l + (e_char ? -1 : 0);
 }
 
+/*
+**	determines how an argument is extracted for signed conversions
+*/
+
 void 	signed_conversion(t_m *m, t_num *n)
 {
 	if (m->place->len == -1)
@@ -124,6 +149,10 @@ void 	signed_conversion(t_m *m, t_num *n)
 	else if (m->place->len == 5)
 		ft_spn((intmax_t)va_arg((m->ap), size_t), n, m);
 }
+
+/*
+**	determines how an argument is extracted fr unsigned conversions
+*/
 
 void 	unsigned_conversion(t_m *m, t_num *n)
 {
@@ -141,6 +170,10 @@ void 	unsigned_conversion(t_m *m, t_num *n)
 		ft_upn((uintmax_t)va_arg((m->ap), size_t), n, m);
 }
 
+/*
+**	initializes the number struct needed to carry out conversion
+*/
+
 void	get_num(t_m *m, t_num *n)
 {
 	int type;
@@ -155,6 +188,10 @@ void	get_num(t_m *m, t_num *n)
 	else if (type == 6 || type == 7 || type == 10 || type == 11)
 		unsigned_conversion(m, n);
 }
+
+/*
+**	handels conversion for number types
+*/
 
 int		dig(t_m *m, char buf[MAX])
 {
