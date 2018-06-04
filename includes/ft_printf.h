@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 19:31:04 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/02 19:39:41 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/04 15:23:54 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,15 @@
 /*
 **	define structs
 */
+
+typedef struct	s_w
+{
+	struct	s_num *n;
+	char 	*w;
+	int		z;
+	int 	l;
+	int		e_char;
+}				t_w;
 
 typedef struct 	s_num
 {

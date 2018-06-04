@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 06:49:20 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/04 14:30:39 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/04 15:29:46 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,49 +85,70 @@ int 	get_signchar(t_num *n, int flags)
 }
 
 /*
+**	appplies padding at the begining of the string while prepending the appropriate extara
+**	characters as determines by flags
+*/
+
+void		append(t_num *n, t_w *spec, int wd, int flags)
+{
+	char	*tmp;
+	
+	spec->l = ft_strlen(n->b_conv);
+	tmp = ft_strdup(n->b_conv);
+	ft_memcpy(n->b_conv, spec->w, wd - spec->l);
+	if ((spec->e_char = (!spec->z && (n->neg < 0 || flags & SPACE || flags & PLUS))))
+	{
+		n->b_conv[wd - spec->l - 1] = get_signchar(n, flags);
+		n->neg = 1;	
+	}
+	ft_memdel((void**)&spec->w);
+	ft_memcpy(n->b_conv + wd - spec->l, tmp, spec->l);
+	ft_memdel((void**)&tmp);
+}
+
+/*
+**	applies padding at the end of the string  while prepending the appropriate extara
+**	characters as determines by flags
+*/
+
+void		prepend(t_num *n, t_w *spec, int wd, int flags)
+{
+	char	*tmp;
+	
+	spec->l = ft_strlen(n->b_conv);
+	tmp = ft_strdup(n->b_conv);
+	if ((spec->e_char = (!spec->z && (n->neg < 0 || flags & SPACE || flags & PLUS))))
+	{
+		n->b_conv[0] = get_signchar(n, flags);
+		n->neg = 1;
+		ft_memcpy(n->b_conv + 1, tmp, ft_strlen(n->b_conv));
+	}
+	else
+		ft_memcpy(n->b_conv, tmp, ft_strlen(n->b_conv));
+	ft_memcpy(n->b_conv + ft_strlen(tmp) + (spec->e_char ? 1 : 0), spec->w, wd + (spec->e_char ? -2 : -1));
+	ft_memdel((void**)&spec->w);
+	ft_memdel((void**)&tmp);
+}
+
+/*
 **	edits string to accomadte sign and any other extra characters needed for flags
 **	while complying with width specification
 */
 
 void 	num_wdth(t_num *n, int wd, int flags)
 {
-	int		l;
-	int		z;
-	char 	*tmp;
-	char	*w;
-	int		e_char;
+	t_w	spec;
 
-	z = flags & ZERO;
-	w = (l = ft_strlen(n->b_conv)) < wd ? ft_strnew(wd - l) : NULL;
-	e_char = 0;
-	if (w)
-		ft_memset(w, (z ? '0' : ' '), (!z && wd - l > 0 ? wd - l : wd - l - 1));
-	tmp = ft_strdup(n->b_conv);
-	if (w && !(flags & MINUS))
-	{
-		ft_memcpy(n->b_conv, w, wd - l);
-		if ((e_char = (!z && (n->neg < 0 || flags & SPACE || flags & PLUS))))
-		{
-			n->b_conv[wd - l - 1] = get_signchar(n, flags);
-			n->neg = 1;	
-		}
-		ft_memdel((void**)&w);
-		ft_memcpy(n->b_conv + wd - l, tmp, l);
-		ft_memdel((void**)&tmp);
-	}
-	else if (w && (flags & MINUS))
-	{
-		if ((e_char = (!z && (n->neg < 0 || flags & SPACE || flags & PLUS))))
-		{
-			n->b_conv[0] = get_signchar(n, flags);
-			n->neg = 1;
-			ft_memcpy(n->b_conv + 1, tmp, ft_strlen(n->b_conv));
-		}
-		else
-			ft_memcpy(n->b_conv, tmp, ft_strlen(n->b_conv));
-		ft_memcpy(n->b_conv + ft_strlen(tmp) + (e_char ? 1 : 0), w, wd + (e_char ? -2 : -1));
-	}
-	n->idx += wd - l + (e_char ? -1 : 0);
+	spec.z = flags & ZERO;
+	spec.w = (spec.l = ft_strlen(n->b_conv)) < wd ? ft_strnew(wd - spec.l) : NULL;
+	spec.e_char = 0;
+	if (spec.w)
+		ft_memset(spec.w, (spec.z ? '0' : ' '), (!spec.z && wd - spec.l > 0 ? wd - spec.l : wd - spec.l - 1));
+	if (spec.w && !(flags & MINUS))
+		append(n, &spec, wd, flags);
+	else if (spec.w && (flags & MINUS))
+		prepend(n, &spec, wd, flags);
+	n->idx += wd - spec.l + (spec.e_char ? -1 : 0);
 }
 
 /*
@@ -196,35 +217,10 @@ void	get_num(t_m *m, t_num *n)
 int		dig(t_m *m, char buf[MAX])
 {
 	t_num 		n;
-	//int			base;
-	//int			i;
-	//char		b_conv[100];
-	//int			neg;
-	//int			arg;
 
 	get_base(m, &n);
 	get_num(m, &n);
 	num_prcs(&n, m->place->precision);
 	num_wdth(&n, m->place->width, m->place->flags);
-	/*
-	n.idx = 0;	
-	n.base = get_base(m);
-	ft_bzero(n.b_conv, 100);
-	n.arg = va_arg((m->ap), long long);
-	n.neg = n.arg < 0 ? -1 : 1;
-	if (n.neg < 0 && !(m->place->type >= 3 && m->place->type <= 5))
-		n.arg = (((n.arg * -1) ^ 0xfffffff) & 0xfffffff) + 1;
-	if (m->place->flags & PLUS && n.arg >= 0)
-		buf[m->pos_b++] = '+';
-	else if (m->place->flags & SPACE && n.arg >= 0)
-		buf[m->pos_b++] = ' ';
-	ft_pn((n.arg < 0 && !(m->place->type >= 3 && m->place->type <= 5) ? n.arg * -1 : n.arg) , n.b_conv, m->place->type, &(n.idx), n.base);
-	num_prcs(n.b_conv, m->place->precision, &(n.idx));
-	num_wdth(n.b_conv, m->place->width, m->place->flags, &(n.neg),  &(n.idx));
-	if (n.neg < 0 && (m->place->type >= 3 && m->place->type <= 5))
-		buf[m->pos_b++] = '-';
-	if (n.neg < 0 && (m->place->type == 10 || m->place->type <= 11))
-		buf[m->pos_b++] = m->place->type == 10 ? 'f' : 'F';
-	*/
 	return(replace(m, buf, n.b_conv));
 }
