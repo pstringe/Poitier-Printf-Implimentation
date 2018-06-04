@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 08:16:09 by pstringe          #+#    #+#             */
-/*   Updated: 2018/05/29 19:25:41 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/04 14:10:17 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ int		str(t_m *m, char buf[MAX])
 	if (m->place->flags & MINUS)
 		while (w-- > 0)
 			buf[m->pos_b++] = ' ';
-	return (i);
+	return (0);
 }

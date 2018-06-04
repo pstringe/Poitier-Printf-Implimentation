@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 06:49:20 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/02 20:49:39 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/03 15:47:35 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,24 +57,37 @@ void	num_prcs(t_num *n, int pr)
 	n->idx += pr - l;
 }
 
+int 	get_signchar(t_num *n, int flags)
+{
+	if (n->neg < 0)
+		return ('-');
+	if (flags & SPACE)
+		return (' ');
+	if (flags & PLUS)
+		return ('+');
+	return (0);
+}
+
 void 	num_wdth(t_num *n, int wd, int flags)
 {
 	int		l;
 	int		z;
 	char 	*tmp;
 	char	*w;
+	int		e_char;
 
 	z = flags & ZERO;
 	w = (l = ft_strlen(n->b_conv)) < wd ? ft_strnew(wd - l) : NULL;
+	e_char = 0;
 	if (w)
 		ft_memset(w, (z ? '0' : ' '), (!z && wd - l > 0 ? wd - l : wd - l - 1));
+	tmp = ft_strdup(n->b_conv);
 	if (w && !(flags & MINUS))
 	{
-		tmp = ft_strdup(n->b_conv);
 		ft_memcpy(n->b_conv, w, wd - l);
-		if (!z && n->neg < 0)
+		if ((e_char = (!z && (n->neg < 0 || flags & SPACE || flags & PLUS))))
 		{
-			n->b_conv[wd - l - 1] = '-';
+			n->b_conv[wd - l - 1] = get_signchar(n, flags);
 			n->neg = 1;	
 		}
 		ft_memdel((void**)&w);
@@ -82,13 +95,23 @@ void 	num_wdth(t_num *n, int wd, int flags)
 		ft_memdel((void**)&tmp);
 	}
 	else if (w && (flags & MINUS))
-		ft_memcpy(n->b_conv + ft_strlen(n->b_conv), w, wd - 1);
-	n->idx += wd - l;
+	{
+		if ((e_char = (!z && (n->neg < 0 || flags & SPACE || flags & PLUS))))
+		{
+			n->b_conv[0] = get_signchar(n, flags);
+			n->neg = 1;
+			ft_memcpy(n->b_conv + 1, tmp, ft_strlen(n->b_conv));
+		}
+		else
+			ft_memcpy(n->b_conv, tmp, ft_strlen(n->b_conv));
+		ft_memcpy(n->b_conv + ft_strlen(tmp) + (e_char ? 1 : 0), w, wd + (e_char ? -2 : -1));
+	}
+	n->idx += wd - l + (e_char ? -1 : 0);
 }
 
 void 	signed_conversion(t_m *m, t_num *n)
 {
-	if (m->place->len == 0)
+	if (m->place->len == -1)
 		ft_spn((intmax_t)va_arg((m->ap), int), n, m);
 	else if (m->place->len == 1)
 		ft_spn((intmax_t)va_arg((m->ap), int), n, m);
@@ -104,7 +127,7 @@ void 	signed_conversion(t_m *m, t_num *n)
 
 void 	unsigned_conversion(t_m *m, t_num *n)
 {
-	if (m->place->len == 0)
+	if (m->place->len == -1)
 		ft_upn((uintmax_t)va_arg((m->ap), unsigned int), n, m);
 	else if (m->place->len == 1)
 		ft_upn((uintmax_t)va_arg((m->ap), unsigned int), n, m);

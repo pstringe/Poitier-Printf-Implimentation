@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 09:40:33 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/02 20:08:18 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/04 14:14:19 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@ int 	main(int argc, char **argv)
 		while (++i < argc)
 		{
 			str = argv[i];
-			printf("A: %x\n", -42);
-			ft_printf("B: %x\n", -42);
+			printf("A: %d\t", printf("%s\n", "This is a string"));
+			
+			printf("B: %d\t", ft_printf("%s\n", "This is a string"));
 		}
 	}
 	return (0);
