@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 16:06:17 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/04 17:28:00 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/05 13:27:55 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,31 @@ int 	get_signchar(t_num *n, int flags)
 **	edits number string to accomodate precision specification
 */
 
-void	num_prcs(t_num *n, int pr)
+void	num_prcs(t_m *m, t_num *n, int pr)
 {
 	int		l;
 	char 	*tmp;
 	char	*p;
+	int		h;
 
-	p = (l = ft_strlen(n->b_conv)) < pr ? ft_strnew(pr - l) : NULL;
+	h = (m->place->flags & HASH) ? 2 : 0;
+	p = (l = ft_strlen(n->b_conv)) < pr ? ft_strnew(pr - l - h) : NULL;
 	if (p)
 	{
 		tmp = ft_strdup(n->b_conv);
-		ft_memset(p, '0', pr - l);
-		ft_memcpy(n->b_conv, p, pr - l);
+		ft_memset(p, '0', pr - l - (h ? 2 : 0));
+		if (h)
+			ft_memcpy(n->b_conv, (m->place->type == 10 ? "0x" : "0X"), 2);
+		ft_memcpy(n->b_conv + (h ? 2 : 0), p, pr - l);
 		ft_memdel((void**)&p);
-		ft_memcpy(n->b_conv + pr - l, tmp, l);
+		ft_memcpy(n->b_conv + pr - l + (h ? 2 : 0), tmp, l);
 		ft_memdel((void**)&tmp);
+	}
+	else if (h)
+	{
+		tmp = ft_strdup(n->b_conv);
+		ft_memcpy(n->b_conv, (m->place->type == 10 ? "0x" : "0X"), 2);
+		ft_memcpy(n->b_conv + 2, tmp, ft_strlen(tmp));
 	}
 	n->idx += pr - l;
 }
@@ -80,7 +90,7 @@ void		append(t_num *n, t_w *spec, int wd, int flags)
 void		prepend(t_num *n, t_w *spec, int wd, int flags)
 {
 	char	*tmp;
-	
+
 	spec->l = ft_strlen(n->b_conv);
 	tmp = ft_strdup(n->b_conv);
 	if ((spec->e_char = (!spec->z && (n->sign < 0 || flags & SPACE || flags & PLUS))))

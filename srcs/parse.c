@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:45:41 by pstringe          #+#    #+#             */
-/*   Updated: 2018/05/31 15:21:01 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/05 14:30:33 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,11 @@ int		get_len(t_m *m)
 			m->place->len = i;
 		else
 			l = 0;
-	m->pos_f += l + 1;
+	if (I_P && m->place->start != m->pos_f)
+		m->pos_f += 0;
+	else
+		m->pos_f += l + 1;
+
 	return (l);
 }
 

@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 08:16:09 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/04 19:44:47 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/04 20:12:50 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int		str(t_m *m, char buf[MAX])
 			buf[m->pos_b++] = ' ';
 	while (arg[++i] && i < p)
 		buf[m->pos_b++] = arg[i];
+	if (m->place->type == 12)
+		ft_memdel((void**)&arg);
 	if (m->place->flags & MINUS)
 		while (w-- > 0)
 			buf[m->pos_b++] = ' ';
