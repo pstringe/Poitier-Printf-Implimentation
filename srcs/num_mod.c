@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 16:06:17 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/04 16:17:09 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/04 17:28:00 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 int 	get_signchar(t_num *n, int flags)
 {
-	if (n->neg < 0)
+	if (n->sign < 0)
 		return ('-');
 	if (flags & SPACE)
 		return (' ');
@@ -62,7 +62,7 @@ void		append(t_num *n, t_w *spec, int wd, int flags)
 	spec->l = ft_strlen(n->b_conv);
 	tmp = ft_strdup(n->b_conv);
 	ft_memcpy(n->b_conv, spec->w, wd - spec->l);
-	if ((spec->e_char = (!spec->z && (n->neg < 0 || flags & SPACE || flags & PLUS))))
+	if ((spec->e_char = (!spec->z && (n->sign < 0 || flags & SPACE || flags & PLUS))))
 	{
 		n->b_conv[wd - spec->l - 1] = get_signchar(n, flags);
 		n->neg = 1;	
@@ -83,10 +83,9 @@ void		prepend(t_num *n, t_w *spec, int wd, int flags)
 	
 	spec->l = ft_strlen(n->b_conv);
 	tmp = ft_strdup(n->b_conv);
-	if ((spec->e_char = (!spec->z && (n->neg < 0 || flags & SPACE || flags & PLUS))))
+	if ((spec->e_char = (!spec->z && (n->sign < 0 || flags & SPACE || flags & PLUS))))
 	{
 		n->b_conv[0] = get_signchar(n, flags);
-		n->neg = 1;
 		ft_memcpy(n->b_conv + 1, tmp, ft_strlen(n->b_conv));
 	}
 	else
@@ -104,6 +103,8 @@ void		prepend(t_num *n, t_w *spec, int wd, int flags)
 void 	num_wdth(t_num *n, int wd, int flags)
 {
 	t_w	spec;
+	char *tmp;
+	char s;
 
 	spec.z = flags & ZERO;
 	spec.w = (spec.l = ft_strlen(n->b_conv)) < wd ? ft_strnew(wd - spec.l) : NULL;
@@ -114,5 +115,12 @@ void 	num_wdth(t_num *n, int wd, int flags)
 		append(n, &spec, wd, flags);
 	else if (spec.w && (flags & MINUS))
 		prepend(n, &spec, wd, flags);
+	else if ((s = get_signchar(n, flags)))
+	{
+		tmp = ft_strdup(n->b_conv);
+		n->b_conv[0] = get_signchar(n, flags);
+		ft_memcpy(n->b_conv + 1, tmp, ft_strlen(n->b_conv));
+		ft_memdel((void**)&tmp);
+	}
 	n->idx += wd - spec.l + (spec.e_char ? -1 : 0);
 }
