@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 15:37:00 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/04 15:44:00 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/04 18:32:24 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void 	get_base(t_m *m, t_num *n)
 		n->base = 8;
 	if (m->place->type == 7)
 		n->base = 8;
+	if (m->place->type == 8)
+		n->base = 10;
 	if (m->place->type == 10)
 		n->base = 16;
 	if (m->place->type == 11)
@@ -87,7 +89,7 @@ void	get_num(t_m *m, t_num *n)
 	type = m->place->type;
 	if (type == 3 || type == 4 || type == 5)
 		signed_conversion(m, n);
-	else if (type == 6 || type == 7 || type == 10 || type == 11)
+	else if (type == 6 || type == 7 || type == 8 || type == 10 || type == 11)
 		unsigned_conversion(m, n);
 }
 
