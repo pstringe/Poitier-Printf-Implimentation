@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:41:06 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/04 18:13:12 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/04 19:35:39 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	init_funcs(int (*con[NO_OF_TYPES])(t_m*, char buf[MAX]))
 	con[9] = &usi;
 	con[10] = &dig;
 	con[11] = &dig;
-	con[12] = &uch;
+	con[12] = &str;
 	con[13] = &uni;
 	con[14] = &not;
 }
