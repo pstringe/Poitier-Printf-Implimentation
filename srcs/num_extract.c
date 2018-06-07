@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 15:37:00 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/04 18:32:24 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/06 18:28:36 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ void 	signed_conversion(t_m *m, t_num *n)
 	if (m->place->len == -1)
 		ft_spn((intmax_t)va_arg((m->ap), int), n, m);
 	else if (m->place->len == 1)
-		ft_spn((intmax_t)va_arg((m->ap), int), n, m);
+		ft_spn((intmax_t)va_arg((m->ap), long long), n, m);
 	else if (m->place->len == 2)
 		ft_spn((intmax_t)va_arg((m->ap), long), n, m);
 	else if (m->place->len == 3)
-		ft_spn((intmax_t)va_arg((m->ap), long long), n, m);
+		ft_spn((intmax_t)va_arg((m->ap), int), n, m);
 	else if (m->place->len == 4)
 		ft_spn((intmax_t)va_arg((m->ap), intmax_t), n, m);
 	else if (m->place->len == 5)
@@ -63,11 +63,11 @@ void 	unsigned_conversion(t_m *m, t_num *n)
 	if (m->place->len == -1)
 		ft_upn((uintmax_t)va_arg((m->ap), unsigned int), n, m);
 	else if (m->place->len == 1)
-		ft_upn((uintmax_t)va_arg((m->ap), unsigned int), n, m);
+		ft_upn((uintmax_t)va_arg((m->ap), unsigned long long), n, m);
 	else if (m->place->len == 2)
 		ft_upn((uintmax_t)va_arg((m->ap), unsigned long), n, m);
 	else if (m->place->len == 3)
-		ft_upn((uintmax_t)va_arg((m->ap), unsigned long long), n, m);
+		ft_upn((uintmax_t)va_arg((m->ap), unsigned int), n, m);
 	else if (m->place->len == 4)
 		ft_upn((uintmax_t)va_arg((m->ap), uintmax_t), n, m);
 	else if (m->place->len == 5)

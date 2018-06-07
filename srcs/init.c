@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:41:06 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/04 19:35:39 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/06 18:16:25 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void	init_funcs(int (*con[NO_OF_TYPES])(t_m*, char buf[MAX]))
 void	init_lens(char *lens[NO_OF_LENS])
 {
 	lens[0] = "hh";
-	lens[1] = "h";
+	lens[1] = "ll";
 	lens[2] = "l";
-	lens[3] = "ll";
+	lens[3] = "h";
 	lens[4] = "j";
 	lens[5] = "z";
 }	
