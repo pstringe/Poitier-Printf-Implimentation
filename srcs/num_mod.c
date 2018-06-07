@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 16:06:17 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/06 21:30:12 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/06 21:55:49 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	num_prcs(t_m *m, t_num *n, int pr)
 	char	*p;
 	int		h;
 
-	h = (m->place->flags & HASH) ? 2 : 0;
+	h = ((m->place->flags & HASH) && ft_strncmp("0", n->b_conv, ft_strlen(n->b_conv))) ? 2 : 0;
 	p = (l = ft_strlen(n->b_conv)) < pr ? ft_strnew(pr - l - h) : NULL;
 	if (p)
 	{
@@ -116,7 +116,7 @@ void 	num_wdth(t_num *n, int wd, int flags)
 	char *tmp;
 	char s;
 
-	spec.z = flags & ZERO;
+	spec.z = (flags & ZERO) && ft_strncmp("0", n->b_conv, ft_strlen(n->b_conv));
 	spec.w = (spec.l = ft_strlen(n->b_conv)) < wd ? ft_strnew(wd - spec.l) : NULL;
 	spec.e_char = 0;
 	if (spec.w)
