@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 08:16:09 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/04 20:12:50 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/13 16:28:33 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int		str(t_m *m, char buf[MAX])
 	int		p;
 	int		w;
 
+	m->place->precision = m->place->precision == -1 ? 0 : m->place->precision;
 	arg = m->place->type == 12 ? ft_strnew(1) : va_arg(m->ap, char*);
 	if (m->place->type == 12)
 		arg[0] = va_arg(m->ap, int);

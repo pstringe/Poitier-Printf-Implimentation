@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 16:06:17 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/13 12:17:02 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/13 16:23:11 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	num_prcs(t_num *n, int pr)
 	char 	*tmp;
 	char	*p;
 
+	pr = pr == -1 ? 0 : pr;
 	p = (l = ft_strlen(n->b_conv)) < pr ? ft_strnew(pr - l) : NULL;
 	if (p)
 	{
