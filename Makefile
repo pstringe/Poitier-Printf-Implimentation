@@ -19,6 +19,7 @@ FILES = ft_printf\
 	   usi\
 	   num_extract\
 	   num_convert\
+	   num_flags\
 	   num_mod\
 	   not
 
@@ -31,6 +32,8 @@ LFT = ./libft/
 LFT_FILES = ft_putchar\
 			ft_is_whitespace\
 			ft_strchr\
+			ft_strlcat\
+			ft_isdigit\
 			ft_putstr\
 		   	ft_strlen\
 		   	ft_strdup\

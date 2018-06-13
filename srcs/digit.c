@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 06:49:20 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/04 22:35:01 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/09 19:02:33 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int		dig(t_m *m, char buf[MAX])
 
 	get_base(m, &n);
 	get_num(m, &n);
-	num_prcs(m, &n, m->place->precision);
+	num_prcs(&n, m->place->precision);
 	num_wdth(&n, m->place->width, m->place->flags);
+	flags(m, &n);
 	return(replace(m, buf, n.b_conv));
 }

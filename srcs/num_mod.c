@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 16:06:17 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/09 15:04:51 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/09 18:39:35 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,11 @@ int 	get_signchar(t_num *n, int flags)
 **	edits number string to accomodate precision specification
 */
 
-void	num_prcs(t_m *m, t_num *n, int pr)
+void	num_prcs(t_num *n, int pr)
 {
 	int		l;
 	char 	*tmp;
 	char	*p;
-	int		h;
 
 	p = (l = ft_strlen(n->b_conv)) < pr ? ft_strnew(pr - l) : NULL;
 	if (p)
@@ -44,6 +43,7 @@ void	num_prcs(t_m *m, t_num *n, int pr)
 		tmp = ft_strdup(n->b_conv);
 		ft_memset(p, '0', pr - l);
 		ft_memcpy(n->b_conv, p, pr - l);
+		n->p_len = pr - l;
 		ft_memdel((void**)&p);
 		ft_memcpy(n->b_conv + pr - l, tmp, l);
 		ft_memdel((void**)&tmp);
@@ -70,6 +70,7 @@ void		append(t_num *n, t_w *spec, int wd, int flags)
 	}
 	ft_memdel((void**)&spec->w);
 	ft_memcpy(n->b_conv + wd - spec->l, tmp, spec->l);
+	n->w_len = spec->l;
 	ft_memdel((void**)&tmp);
 }
 
@@ -92,6 +93,7 @@ void		prepend(t_num *n, t_w *spec, int wd, int flags)
 	else
 		ft_memcpy(n->b_conv, tmp, ft_strlen(n->b_conv));
 	ft_memcpy(n->b_conv + ft_strlen(tmp) + (spec->e_char ? 1 : 0), spec->w, wd + (spec->e_char ? -2 : -1));
+	n->w_len = wd + (spec->e_char ? -2 : -1);
 	ft_memdel((void**)&spec->w);
 	ft_memdel((void**)&tmp);
 }
