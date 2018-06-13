@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/09 15:18:34 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/13 11:21:04 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/13 11:40:12 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ void 		flags(t_m *m, t_num *n)
 	char 	tmp[100];
 
 	init_f(&flags, m);
-	if (flags.h && ft_strncmp("0", n->b_conv, 1))
+	if (flags.h && ft_strncmp("0", n->b_conv, ft_strlen(n->b_conv)))
 	{
 		if (n->base == 16)
 		{
 			if ((pos = space_left(n, flags)))
-				ft_memcpy(n->b_conv + pos - 2, (m->place->type == 10 ? "0x": "0X"), 2);
+				ft_memcpy(n->b_conv + (*n->b_conv == ' '? pos - 2 : 0), (m->place->type == 10 ? "0x": "0X"), 2);
 			else
 			{
 				ft_bzero(tmp, 100);
