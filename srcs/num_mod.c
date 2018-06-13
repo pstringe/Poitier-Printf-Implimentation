@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 16:06:17 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/09 18:39:35 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/13 12:17:02 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void 	num_wdth(t_num *n, int wd, int flags)
 	char *tmp;
 	char s;
 
-	spec.z = (flags & ZERO) && ft_strncmp("0", n->b_conv, ft_strlen(n->b_conv));
+	spec.z = ((flags & ZERO) && !(flags & MINUS)) && ft_strncmp("0", n->b_conv, ft_strlen(n->b_conv));
 	spec.w = (spec.l = ft_strlen(n->b_conv)) < wd ? ft_strnew(wd - spec.l) : NULL;
 	spec.e_char = 0;
 	if (spec.w)
