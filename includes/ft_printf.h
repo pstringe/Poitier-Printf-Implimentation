@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 19:31:04 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/09 18:40:07 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/19 16:31:55 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ int				usi(t_m *m, char buf[MAX]);
 int				hex(t_m *m, char buf[MAX]);
 int				uch(t_m *m, char buf[MAX]);
 int				uni(t_m *m, char buf[MAX]);
+int				chr(t_m *m, char buf[MAX]);
 int				not(t_m *m, char buf[MAX]);
 
 /*

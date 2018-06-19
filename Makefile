@@ -21,7 +21,8 @@ FILES = ft_printf\
 	   num_convert\
 	   num_flags\
 	   num_mod\
-	   not
+	   not\
+	   char
 
 CFILES = $(patsubst %, $(SRCS_DIR)%.c, $(FILES))
 OFILES = $(patsubst %, %.o, $(FILES))
