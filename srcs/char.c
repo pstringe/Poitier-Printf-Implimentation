@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/19 15:33:58 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/19 17:52:03 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/19 18:19:07 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ int		chr(t_m *m, char buf[MAX])
 	int		arg;
 	int 	w;
 	int		i;
-
-	w =	m->place->width - ((arg = va_arg(m->ap, int)) ? 1 : 0);
+	
+	arg = va_arg(m->ap, int);
+	w =	m->place->width - 1;
 	i = -1;
 	if (!(m->place->flags & MINUS))
 		while (w-- > 0)

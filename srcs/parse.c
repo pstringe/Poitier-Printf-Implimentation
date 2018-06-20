@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:45:41 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/13 16:16:03 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/19 18:18:25 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define S_W_N (m->format[m->pos_f + 1]>='0'&&m->format[m->pos_f + 1]<='9')
 #define I_P m->format[m->pos_f]=='%'
 #define I_W m->format[m->pos_f]== '*'
-#define N_P I_P || I_W ? m->pos_f+1 : m->pos_f
+#define N_P ((I_P || I_W) ? m->pos_f+1 : m->pos_f)
 
 void 	skip_whitespace(t_m *m)
 {
