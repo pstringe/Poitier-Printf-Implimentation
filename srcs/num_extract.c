@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 15:37:00 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/06 20:27:06 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/19 19:57:02 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void 	get_base(t_m *m, t_num *n)
 	if (m->place->type == 3)
 		n->base = 10;
 	if (m->place->type == 4)
+		n->base = 10;
+	if (m->place->type == 5)
 		n->base = 10;
 	if (m->place->type == 6)
 		n->base = 8;
