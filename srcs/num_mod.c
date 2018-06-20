@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 16:06:17 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/20 12:23:53 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/20 13:58:20 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void		append(t_num *n, t_w *spec, int wd, int flags)
 **	while complying with width specification
 */
 
-void 	num_wdth(t_num *n, int wd, int flags)
+void 	num_wdth(t_m *m, t_num *n, int wd, int flags)
 {
 	t_w	spec;
 	char *tmp;

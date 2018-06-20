@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 19:31:04 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/20 12:25:10 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/20 13:42:03 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ void 			get_base(t_m *m, t_num *n);
 
 int 			get_signchar(t_num *n, int flags);
 void			num_prcs(t_num *n, int pr);
-void 			num_wdth(t_num *n, int wd, int flags);
+void 			num_wdth(t_m *m, t_num *n, int wd, int flags);
 void			append(t_num *n, t_w *spec, int wd, int flags);
 void			prepend(t_num *n, t_w *spec, int wd, int flags);
 void			flags(t_m *m, t_num *n);
