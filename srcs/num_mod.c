@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 16:06:17 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/13 16:23:11 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/20 12:23:53 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,10 @@ void	num_prcs(t_num *n, int pr)
 **	characters as determines by flags
 */
 
-void		append(t_num *n, t_w *spec, int wd, int flags)
+void		prepend(t_num *n, t_w *spec, int wd, int flags)
 {
 	char	*tmp;
 	
-	spec->l = ft_strlen(n->b_conv);
 	tmp = ft_strdup(n->b_conv);
 	ft_memcpy(n->b_conv, spec->w, wd - spec->l);
 	if ((spec->e_char = (!spec->z && (n->sign < 0 || flags & SPACE || flags & PLUS))))
@@ -80,20 +79,17 @@ void		append(t_num *n, t_w *spec, int wd, int flags)
 **	characters as determines by flags
 */
 
-void		prepend(t_num *n, t_w *spec, int wd, int flags)
+void		append(t_num *n, t_w *spec, int wd, int flags)
 {
 	char	*tmp;
 
-	spec->l = ft_strlen(n->b_conv);
 	tmp = ft_strdup(n->b_conv);
 	if ((spec->e_char = (!spec->z && (n->sign < 0 || flags & SPACE || flags & PLUS))))
 	{
 		n->b_conv[0] = get_signchar(n, flags);
-		ft_memcpy(n->b_conv + 1, tmp, ft_strlen(n->b_conv));
+		ft_memcpy(n->b_conv + 1, tmp, spec->l);
 	}
-	else
-		ft_memcpy(n->b_conv, tmp, ft_strlen(n->b_conv));
-	ft_memcpy(n->b_conv + ft_strlen(tmp) + (spec->e_char ? 1 : 0), spec->w, wd + (spec->e_char ? -2 : -1));
+	ft_memcpy(n->b_conv + spec->l + (spec->e_char ? 1 : 0), spec->w, wd - spec->l - (spec->e_char ? 1 : 0));
 	n->w_len = wd + (spec->e_char ? -2 : -1);
 	ft_memdel((void**)&spec->w);
 	ft_memdel((void**)&tmp);
@@ -110,15 +106,16 @@ void 	num_wdth(t_num *n, int wd, int flags)
 	char *tmp;
 	char s;
 
-	spec.z = ((flags & ZERO) && !(flags & MINUS)) && ft_strncmp("0", n->b_conv, ft_strlen(n->b_conv));
-	spec.w = (spec.l = ft_strlen(n->b_conv)) < wd ? ft_strnew(wd - spec.l) : NULL;
+	spec.l = ft_strlen(n->b_conv);
+	spec.z = ((flags & ZERO) && !(flags & MINUS)) && ft_strncmp("0", n->b_conv, spec.l);
+	spec.w = spec.l < wd ? ft_strnew(wd - spec.l) : NULL;
 	spec.e_char = 0;
 	if (spec.w)
-		ft_memset(spec.w, (spec.z ? '0' : ' '), (!spec.z && wd - spec.l > 0 ? wd - spec.l : wd - spec.l));
+		ft_memset(spec.w, (spec.z ? '0' : ' '), wd - spec.l);
 	if (spec.w && !(flags & MINUS))
-		append(n, &spec, wd, flags);
-	else if (spec.w && (flags & MINUS))
 		prepend(n, &spec, wd, flags);
+	else if (spec.w && (flags & MINUS))
+		append(n, &spec, wd, flags);
 	else if ((s = get_signchar(n, flags)))
 	{
 		tmp = ft_strdup(n->b_conv);
