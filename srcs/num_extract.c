@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 15:37:00 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/19 19:57:02 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/19 20:23:45 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,18 @@ void 	get_base(t_m *m, t_num *n)
 		n->base = 16;
 	if (m->place->type == 11)
 		n->base = 16;
+}
+
+/*
+**	performs propper length conversion for capital letters
+*/
+
+void	get_lmod(t_m *m)
+{
+	int t;
+	
+	t = m->place->type;
+	m->place->len = t == 4 || t == 7 || t == 9 ? 2 : m->place->len;
 }
 
 /*
@@ -93,6 +105,7 @@ void	get_num(t_m *m, t_num *n)
 	ft_bzero(n->b_conv, 100);
 	n->neg = 0;
 	type = m->place->type;
+	get_lmod(m);
 	if (type == 3 || type == 4 || type == 5)
 		signed_conversion(m, n);
 	else if (type == 6 || type == 7 || type == 8 || type == 10 || type == 11)
