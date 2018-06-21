@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 15:37:00 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/19 20:23:45 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/20 21:07:45 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void 	get_base(t_m *m, t_num *n)
 	if (m->place->type == 8)
 		n->base = 10;
 	if (m->place->type == 10)
+		n->base = 16;
+	if (m->place->type == 2)
 		n->base = 16;
 	if (m->place->type == 11)
 		n->base = 16;
@@ -106,9 +108,11 @@ void	get_num(t_m *m, t_num *n)
 	n->neg = 0;
 	type = m->place->type;
 	get_lmod(m);
+	if (type == 2)
+		m->place->len = 4;
 	if (type == 3 || type == 4 || type == 5)
 		signed_conversion(m, n);
-	else if (type == 6 || type == 7 || type == 8 || type == 10 || type == 11)
+	else if (type == 2 || type == 6 || type == 7 || type == 8 || type == 10 || type == 11)
 		unsigned_conversion(m, n);
 }
 

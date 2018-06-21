@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/09 15:18:34 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/20 20:30:57 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/20 21:03:02 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void		hex_hash(t_m *m, t_num *n, t_f flags, int ol)
 	else
 	{
 		ft_bzero(tmp, 100);
-		ft_memcpy(tmp, (m->place->type == 10 ? "0x": "0X"), 2);
+		ft_memcpy(tmp, (m->place->type == 11 ? "0X": "0x"), 2);
 		ft_strlcat(tmp, n->b_conv, 100);
 		ft_memcpy(n->b_conv, tmp, ((flags.m && ol <= m->place->width) ? m->place->width : ft_strlen(tmp)));
 	}
