@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 19:31:04 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/20 13:42:03 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/21 16:14:15 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "libft.h"
 # include <stdarg.h>
 # include <assert.h>
+# include <wchar.h>
 # define MAX 4096
 # define TYPES "sSpdDioOuUxXcC%"
 # define FLAGS "-+ 0#"
@@ -121,6 +122,7 @@ int				get_type(t_m *m);
 */
 
 int				str(t_m *m, char buf[MAX]);
+int				wstr(t_m *m, char buf[MAX]);
 int				poi(t_m *m, char buf[MAX]);
 int				dig(t_m *m, char buf[MAX]);
 int				oct(t_m *m, char buf[MAX]);
