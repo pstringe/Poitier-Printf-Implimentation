@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 16:06:17 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/20 13:58:20 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/20 18:58:20 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,22 @@ void		append(t_num *n, t_w *spec, int wd, int flags)
 }
 
 /*
+**	evaluates width_char
+*/
+
+char	width_char(t_m *m, t_num *n, t_w spec, int wd, int flags)
+{
+	int	p;
+
+	p = m->place->precision;
+	if (spec.z && (p != -1 && p < wd))
+		return (' ');
+	if (spec.z)
+		return ('0');
+	else
+		return (' ');
+}
+/*
 **	edits string to accomadte sign and any other extra characters needed for flags
 **	while complying with width specification
 */
@@ -111,7 +127,7 @@ void 	num_wdth(t_m *m, t_num *n, int wd, int flags)
 	spec.w = spec.l < wd ? ft_strnew(wd - spec.l) : NULL;
 	spec.e_char = 0;
 	if (spec.w)
-		ft_memset(spec.w, (spec.z ? '0' : ' '), wd - spec.l);
+		ft_memset(spec.w, width_char(m, n, spec, wd, flags), wd - spec.l);
 	if (spec.w && !(flags & MINUS))
 		prepend(n, &spec, wd, flags);
 	else if (spec.w && (flags & MINUS))
@@ -125,3 +141,5 @@ void 	num_wdth(t_m *m, t_num *n, int wd, int flags)
 	}
 	n->idx += wd - spec.l + (spec.e_char ? -1 : 0);
 }
+
+
