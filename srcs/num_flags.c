@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/09 15:18:34 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/20 21:03:02 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/20 21:26:09 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void		hex_hash(t_m *m, t_num *n, t_f flags, int ol)
 	int		pos;
 
 	if ((pos = space_left(n, flags)))
-		ft_memcpy(n->b_conv + (*n->b_conv == ' '? pos - 2 : 0), (m->place->type == 10 ? "0x": "0X"), 2);
+		ft_memcpy(n->b_conv + (*n->b_conv == ' '? pos - 2 : 0), (m->place->type == 11 ? "0X": "0x"), 2);
 	else
 	{
 		ft_bzero(tmp, 100);
@@ -102,7 +102,8 @@ void 		flags(t_m *m, t_num *n)
 
 	init_f(&flags, m);
 	ol = ft_strlen(n->b_conv);
-	if (flags.h && ft_strncmp("0", n->b_conv, ft_strlen(n->b_conv)))
+	if ((flags.h && (ft_strncmp("0", n->b_conv, ft_strlen(n->b_conv)))) ||
+				(flags.h && m->place->type == 2))
 		if (n->base == 16)
 			hex_hash(m, n, flags, ol);
 		else if (n->base == 8 && n->b_conv[0] != '0')
