@@ -6,11 +6,15 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/09 15:18:34 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/20 19:37:29 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/20 20:30:57 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+/*
+**	initialized a struct to easily deal with flags
+*/
 
 static void init_f(t_f *flags, t_m *m)
 {
@@ -24,6 +28,10 @@ static void init_f(t_f *flags, t_m *m)
 	flags->h = f & HASH;
 }
 
+/*
+**	calculates the space left to copy the prefix
+*/
+
 static int	space_left(t_num *n, t_f f)
 {
 	char	w;
@@ -36,6 +44,10 @@ static int	space_left(t_num *n, t_f f)
 	while (n->b_conv[++i] == w);
 	return (i >= s ? i : 0);
 }
+
+/*
+**	handles hash flag for hexadecimal conversions
+*/
 
 void		hex_hash(t_m *m, t_num *n, t_f flags, int ol)
 {
@@ -53,6 +65,10 @@ void		hex_hash(t_m *m, t_num *n, t_f flags, int ol)
 	}
 }
 
+/*
+** handles hash flag for octal conversions
+*/
+
 void		octal_hash(t_num *n, t_f flags)
 {
 	char 	tmp[100];
@@ -69,6 +85,16 @@ void		octal_hash(t_num *n, t_f flags)
 	}
 }
 
+void		plus(t_m *m, t_num *n, int flags)
+{
+	if (*(n->b_conv) == '0')
+		n->b_conv[0] = get_signchar(n, flags);
+}
+
+/*
+**	handles any flags that weren't handled in precision and width
+*/
+
 void 		flags(t_m *m, t_num *n)
 {
 	int		ol;
@@ -83,4 +109,7 @@ void 		flags(t_m *m, t_num *n)
 		{
 			octal_hash(n, flags);
 		}
+	if (flags.p)
+		plus(m, n, m->place->flags);
+
 }
