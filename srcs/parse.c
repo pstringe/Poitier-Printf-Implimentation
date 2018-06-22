@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:45:41 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/22 14:21:08 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/06/22 14:55:24 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,19 @@ int		get_width(t_m *m)
 	int w;
 	int l;
 	int a;
+	int s;
 
+	s = m->place->flags & SPACE ? 0 : 1;
 	skip_whitespace(m);
 	w = 0;
-	if ((a = (m->format[m->pos_f + 1] == '*')))
+	if ((a = (m->format[m->pos_f + s] == '*')))
 	{
 		w = va_arg(m->ap, int);
 		m->place->width = w;
 	}
-	else if (m->format[m->pos_f + 1] >= '0' && m->format[m->pos_f + 1] <= '9')
+	else if (m->format[m->pos_f + s] >= '0' && m->format[m->pos_f + s] <= '9')
 	{
-		w = ft_atoi(m->format + m->pos_f + 1);
+		w = ft_atoi(m->format + m->pos_f + s);
 		m->place->width = w;
 	}
 	else
