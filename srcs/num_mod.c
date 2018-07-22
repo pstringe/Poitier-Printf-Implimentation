@@ -6,11 +6,25 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 16:06:17 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/22 14:39:38 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/07/22 14:04:55 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+/*
+**	a function to determine whether there will be an extra char prepended to 
+**	the string
+*/
+
+int		get_echar(t_num *n, t_w *spec, int flags)
+{
+	if (!spec->z && (n->sign < 0 || flags & SPACE || flags & PLUS))
+		return (1);
+	else if (n->sign < 0)
+		return (1);
+	return (0);
+}
 
 /*
 **	determines what charater should be prepended to the number string
@@ -63,7 +77,7 @@ void		prepend(t_num *n, t_w *spec, int wd, int flags)
 	
 	tmp = ft_strdup(n->b_conv);
 	ft_memcpy(n->b_conv, spec->w, wd - spec->l);
-	if ((spec->e_char = (!spec->z && (n->sign < 0 || flags & SPACE || flags & PLUS))))
+	if ((spec->e_char = get_echar(n, spec, flags)))
 	{
 		n->b_conv[wd - spec->l - 1] = get_signchar(n, flags);
 		n->neg = 1;	
@@ -111,6 +125,7 @@ char	width_char(t_m *m, t_w spec, int wd)
 	else
 		return (' ');
 }
+
 /*
 **	edits string to accomadte sign and any other extra characters needed for flags
 **	while complying with width specification

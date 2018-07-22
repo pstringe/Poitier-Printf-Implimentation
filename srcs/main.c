@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 09:40:33 by pstringe          #+#    #+#             */
-/*   Updated: 2018/07/22 12:52:34 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/07/22 14:01:37 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,24 @@ void	test_172()
 	int b;
 
 	ft_putstr("172\n");
-	a = printf("A res: %03.2d", -1);
-	b = ft_printf("B res: %03.2d", -1);
+	a = printf("A res: %03.2d\n", -1);
+	b = ft_printf("B res: %03.2d\n", -1);
 	printf("A ret: %d\n", a);
 	printf("B ret: %d\n", b);
 	ft_putchar('\n');
 }
 
-int 	main(void)
+void	test_precision()
 {
 	test_93();
 	test_94();
 	test_95();
 	test_167();
-	//test_172();
+	test_172();
+}
+
+int 	main(void)
+{
+	test_precision();
 	return (0);
 }
