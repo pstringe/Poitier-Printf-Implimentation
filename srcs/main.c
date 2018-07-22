@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 09:40:33 by pstringe          #+#    #+#             */
-/*   Updated: 2018/07/22 15:23:11 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/07/22 16:44:40 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,19 @@ void	p_break_1()
 	ft_putchar('\n');
 }
 
+void	s_break_1()
+{
+	int a;
+	int b;
+
+	ft_putstr("s_break_1\n");
+	a = printf("A res: %3.5s and % 4096s\n", "samp1", NULL);
+	b = ft_printf("B res: %3.5s and % 4096s\n", "samp1", NULL);
+	printf("A ret: %d\n", a);
+	printf("B ret: %d\n", b);
+	ft_putchar('\n');
+}
+
 void	test_precision()
 {
 	test_93();
@@ -101,8 +114,14 @@ void	test_precision()
 	p_break_1();
 }
 
+void	test_string()
+{
+	s_break_1();
+}
+
 int 	main(void)
 {
-	test_precision();
+	//test_precision();
+	test_string();
 	return (0);
 }

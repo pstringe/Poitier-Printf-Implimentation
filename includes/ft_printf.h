@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 19:31:04 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/21 16:14:15 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/07/22 16:43:50 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdarg.h>
 # include <assert.h>
 # include <wchar.h>
-# define MAX 4096
+# define MAX 16000
 # define TYPES "sSpdDioOuUxXcC%"
 # define FLAGS "-+ 0#"
 # define NO_OF_TYPES 14
