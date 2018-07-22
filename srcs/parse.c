@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:45:41 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/22 14:55:24 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/07/22 12:47:45 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ int		get_precision(t_m *m)
 	int	l;
 
 	p = -1;
+	if (m->format[m->pos_f] == '.')
+		m->pos_f--;
 	if (m->format[m->pos_f + 1] == '.')
 		if (m->format[++m->pos_f + 1] == '*')
 		{
