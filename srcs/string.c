@@ -6,13 +6,23 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 08:16:09 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/21 16:00:50 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/07/23 12:37:14 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		str(t_m *m, char buf[MAX])
+static char	*extract_string(t_m *m)
+{
+	char *arg;
+
+	m->place->precision = m->place->precision == -1 ? 0 : m->place->precision;
+	arg = va_arg(m->ap, char*);
+	arg = arg ? arg : "(null)";
+	return (arg);
+}
+
+int			str(t_m *m, char buf[MAX])
 {
 	char	*arg;
 	int		l;
@@ -20,8 +30,7 @@ int		str(t_m *m, char buf[MAX])
 	int		p;
 	int		w;
 
-	m->place->precision = m->place->precision == -1 ? 0 : m->place->precision;
-	arg = (arg = va_arg(m->ap, char*)) ? arg : "(null)";
+	arg = extract_string(m);
 	if (!ft_strncmp(arg, "", ((l = ft_strlen(arg)) ? l : 1)))
 	{
 		arg = m->place->precision ? ft_strnew(m->place->precision) : arg;
