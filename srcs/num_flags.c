@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/09 15:18:34 by pstringe          #+#    #+#             */
-/*   Updated: 2018/07/23 11:13:05 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/07/23 13:49:33 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void		octal_hash(t_num *n, t_f flags)
 	}
 }
 
-void		plus(t_m *m, t_num *n, int flags)
+void		plus(t_num *n, int flags)
 {
 	if (*(n->b_conv) == '0')
 		n->b_conv[0] = get_signchar(n, flags);
@@ -92,12 +92,14 @@ void		flags(t_m *m, t_num *n)
 	ol = ft_strlen(n->b_conv);
 	if ((flags.h && (ft_strncmp("0", n->b_conv, ft_strlen(n->b_conv)))) ||
 				(flags.h && m->place->type == 2))
+	{
 		if (n->base == 16)
 			hex_hash(m, n, flags, ol);
 		else if (n->base == 8 && n->b_conv[0] != '0')
 		{
 			octal_hash(n, flags);
 		}
+	}
 	if (flags.p)
-		plus(m, n, m->place->flags);
+		plus(n, m->place->flags);
 }

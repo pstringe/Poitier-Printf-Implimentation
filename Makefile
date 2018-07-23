@@ -25,7 +25,7 @@ FILES = ft_printf\
 
 CFILES = $(patsubst %, $(SRCS_DIR)%.c, $(FILES))
 OFILES = $(patsubst %, %.o, $(FILES))
-CFLAGS = -g -Wall -Wextra
+CFLAGS = -g -Wall -Werror -Wextra
 
 #libft
 LFT = ./libft/
