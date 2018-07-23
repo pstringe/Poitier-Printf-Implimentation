@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 16:01:16 by pstringe          #+#    #+#             */
-/*   Updated: 2018/07/22 17:40:41 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/07/23 13:22:52 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ static int		ft_wstrncmp(const wchar_t *s1, const wchar_t *s2, size_t n)
 	return (*(s1 + i) - *(s2 + i));
 }
 
-
-static wchar_t *ft_wstrnew(size_t size)
+static wchar_t	*ft_wstrnew(size_t size)
 {
 	wchar_t *str;
 
@@ -39,7 +38,7 @@ static wchar_t *ft_wstrnew(size_t size)
 	return (str);
 }
 
-static size_t			ft_wstrlen(const wchar_t *str)
+static size_t	ft_wstrlen(const wchar_t *str)
 {
 	size_t i;
 
@@ -47,6 +46,16 @@ static size_t			ft_wstrlen(const wchar_t *str)
 	while (str[i])
 		i++;
 	return (i);
+}
+
+static wchar_t	*extract_wstring(t_m *m)
+{
+	wchar_t *arg;
+
+	m->place->precision = m->place->precision == -1 ? 0 : m->place->precision;
+	arg = va_arg(m->ap, wchar_t*);
+	arg = arg ? arg : L"(null)";
+	return (arg);
 }
 
 int				wstr(t_m *m, char buf[MAX])
@@ -57,8 +66,7 @@ int				wstr(t_m *m, char buf[MAX])
 	int		p;
 	int		w;
 
-	m->place->precision = m->place->precision == -1 ? 0 : m->place->precision;
-	arg = (arg = va_arg(m->ap, wchar_t*)) ? arg : L"(null)";
+	arg = extract_wstring(m);
 	if (!ft_wstrncmp(arg, L"", ((l = ft_wstrlen(arg)) ? l : 1)))
 	{
 		arg = m->place->precision ? ft_wstrnew(m->place->precision) : arg;
