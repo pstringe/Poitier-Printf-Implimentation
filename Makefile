@@ -16,7 +16,6 @@ FILES = ft_printf\
 	   pointer\
 	   uch\
 	   unicode\
-	   usi\
 	   num_extract\
 	   num_convert\
 	   num_flags\
