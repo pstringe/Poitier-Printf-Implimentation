@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 09:40:33 by pstringe          #+#    #+#             */
-/*   Updated: 2018/07/22 16:44:40 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/07/22 17:32:26 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,19 @@ void	s_break_1()
 	ft_putchar('\n');
 }
 
+void	w_test_1()
+{
+	int a;
+	int b;
+
+	ft_putstr("s_break_1\n");
+	a = printf("A res: %S\n", L"@@");
+	b = ft_printf("B res: %S\n", L"@@");
+	printf("A ret: %d\n", a);
+	printf("B ret: %d\n", b);
+	ft_putchar('\n');
+}
+
 void	test_precision()
 {
 	test_93();
@@ -116,7 +129,8 @@ void	test_precision()
 
 void	test_string()
 {
-	s_break_1();
+	//s_break_1();
+	w_test_1();
 }
 
 int 	main(void)

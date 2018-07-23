@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 16:01:16 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/21 19:52:30 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/07/22 17:26:09 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,11 @@ int				wstr(t_m *m, char buf[MAX])
 	i = -1;
 	if (!(m->place->flags & MINUS))
 		while (w-- > 0)
-			buf[m->pos_b++] = L' ';
+			buf[m->pos_b++] = (char)L' ';
 	while (arg[++i] && i < p)
-		buf[m->pos_b++] = arg[i];
+		buf[m->pos_b++] = (char)arg[i];
 	if (m->place->flags & MINUS)
 		while (w-- > 0)
-			buf[m->pos_b++] = L' ';
+			buf[m->pos_b++] = (char)L' ';
 	return (0);
 }
