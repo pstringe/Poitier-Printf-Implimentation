@@ -20,6 +20,7 @@ FILES = ft_printf\
 	   num_mod\
 	   not\
 	   wide_string\
+	   num_help\
 	   char
 
 CFILES = $(patsubst %, $(SRCS_DIR)%.c, $(FILES))

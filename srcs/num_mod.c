@@ -6,40 +6,11 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 16:06:17 by pstringe          #+#    #+#             */
-/*   Updated: 2018/07/22 14:04:55 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/07/23 12:57:45 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-/*
-**	a function to determine whether there will be an extra char prepended to 
-**	the string
-*/
-
-int		get_echar(t_num *n, t_w *spec, int flags)
-{
-	if (!spec->z && (n->sign < 0 || flags & SPACE || flags & PLUS))
-		return (1);
-	else if (n->sign < 0)
-		return (1);
-	return (0);
-}
-
-/*
-**	determines what charater should be prepended to the number string
-*/
-
-int 	get_signchar(t_num *n, int flags)
-{
-	if (n->sign < 0)
-		return ('-');
-	if (flags & SPACE)
-		return (' ');
-	if (flags & PLUS)
-		return ('+');
-	return (0);
-}
 
 /*
 **	edits number string to accomodate precision specification
@@ -48,11 +19,12 @@ int 	get_signchar(t_num *n, int flags)
 void	num_prcs(t_num *n, int pr)
 {
 	int		l;
-	char 	*tmp;
+	char	*tmp;
 	char	*p;
 
 	pr = pr == -1 ? 0 : pr;
-	p = (l = ft_strlen(n->b_conv)) < pr ? ft_strnew(pr - l) : NULL;
+	l = ft_strlen(n->b_conv);
+	p = l < pr ? ft_strnew(pr - l) : NULL;
 	if (p)
 	{
 		tmp = ft_strdup(n->b_conv);
@@ -67,20 +39,21 @@ void	num_prcs(t_num *n, int pr)
 }
 
 /*
-**	appplies padding at the begining of the string while prepending the appropriate extara
+**	appplies padding at the begining of the string while prepending the
+**	appropriate extra.
 **	characters as determines by flags
 */
 
-void		prepend(t_num *n, t_w *spec, int wd, int flags)
+void	prepend(t_num *n, t_w *spec, int wd, int flags)
 {
 	char	*tmp;
-	
+
 	tmp = ft_strdup(n->b_conv);
 	ft_memcpy(n->b_conv, spec->w, wd - spec->l);
 	if ((spec->e_char = get_echar(n, spec, flags)))
 	{
 		n->b_conv[wd - spec->l - 1] = get_signchar(n, flags);
-		n->neg = 1;	
+		n->neg = 1;
 	}
 	ft_memdel((void**)&spec->w);
 	ft_memcpy(n->b_conv + wd - spec->l, tmp, spec->l);
@@ -89,21 +62,24 @@ void		prepend(t_num *n, t_w *spec, int wd, int flags)
 }
 
 /*
-**	applies padding at the end of the string  while prepending the appropriate extara
+**	applies padding at the end of the string while prepending the
+**	appropriate extra.
 **	characters as determines by flags
 */
 
-void		append(t_num *n, t_w *spec, int wd, int flags)
+void	append(t_num *n, t_w *spec, int wd, int flags)
 {
 	char	*tmp;
 
 	tmp = ft_strdup(n->b_conv);
-	if ((spec->e_char = (!spec->z && (n->sign < 0 || flags & SPACE || flags & PLUS))))
+	if ((spec->e_char = (!spec->z &&
+					(n->sign < 0 || flags & SPACE || flags & PLUS))))
 	{
 		n->b_conv[0] = get_signchar(n, flags);
 		ft_memcpy(n->b_conv + 1, tmp, spec->l);
 	}
-	ft_memcpy(n->b_conv + spec->l + (spec->e_char ? 1 : 0), spec->w, wd - spec->l - (spec->e_char ? 1 : 0));
+	ft_memcpy(n->b_conv + spec->l + (spec->e_char ? 1 : 0),
+			spec->w, wd - spec->l - (spec->e_char ? 1 : 0));
 	n->w_len = wd + (spec->e_char ? -2 : -1);
 	ft_memdel((void**)&spec->w);
 	ft_memdel((void**)&tmp);
@@ -127,18 +103,19 @@ char	width_char(t_m *m, t_w spec, int wd)
 }
 
 /*
-**	edits string to accomadte sign and any other extra characters needed for flags
-**	while complying with width specification
+**	edits string to accomadte sign and any other extra characters
+**	needed for flags while complying with width specification
 */
 
-void 	num_wdth(t_m *m, t_num *n, int wd, int flags)
+void	num_wdth(t_m *m, t_num *n, int wd, int flags)
 {
-	t_w	spec;
-	char *tmp;
-	char s;
+	t_w		spec;
+	char	*tmp;
+	char	s;
 
 	spec.l = ft_strlen(n->b_conv);
-	spec.z = ((flags & ZERO) && !(flags & MINUS)) && ft_strncmp("0", n->b_conv, spec.l);
+	spec.z = ((flags & ZERO) && !(flags & MINUS)) &&
+		ft_strncmp("0", n->b_conv, spec.l);
 	spec.w = spec.l < wd ? ft_strnew(wd - spec.l) : NULL;
 	spec.e_char = 0;
 	if (spec.w)
@@ -156,5 +133,3 @@ void 	num_wdth(t_m *m, t_num *n, int wd, int flags)
 	}
 	n->idx += wd - spec.l + (spec.e_char ? -1 : 0);
 }
-
-

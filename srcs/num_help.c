@@ -6,88 +6,37 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/31 17:50:58 by pstringe          #+#    #+#             */
-/*   Updated: 2018/07/23 11:54:37 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/07/23 13:02:36 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
 /*
-**	determines what base should be passed to ft_pn base on the type of the
-**	conversion
+**	a function to determine whether there will be an extra char prepended to 
+**	the string
 */
 
-int		get_base(t_m *m)
+int		get_echar(t_num *n, t_w *spec, int flags)
 {
-	if (m->place->type == 3)
-		return (10);
-	if (m->place->type == 4)
-		return (10);
-	if (m->place->type == 5)
-		return (10);
-	if (m->place->type == 6)
-		return (8);
-	if (m->place->type == 7)
-		return (8);
-	if (m->place->type == 10)
-		return (16);
-	if (m->place->type == 11)
-		return (16);
+	if (!spec->z && (n->sign < 0 || flags & SPACE || flags & PLUS))
+		return (1);
+	else if (n->sign < 0)
+		return (1);
 	return (0);
 }
 
 /*
-**	edits string according to precision
+**	determines what charater should be prepended to the number string
 */
 
-void	num_prcs(char buf[100], int pr)
+int 	get_signchar(t_num *n, int flags)
 {
-	int		l;
-	char	*tmp;
-	char	*p;
-
-	l = ft_strlen(buf);
-	p = l < pr ? ft_strnew(pr - l) : NULL;
-	if (p)
-	{
-		tmp = ft_strdup(buf);
-		ft_memset(p, '0', pr - l);
-		ft_memcpy(buf, p, pr - l);
-		ft_memdel((void**)&p);
-		ft_memcpy(buf + pr - l, tmp, l);
-		ft_memdel((void**)&tmp);
-	}
-}
-
-/*
-**	edits string according to width specifications
-*/
-
-void	num_wdth(char buf[100], int wd, int flags, int *neg)
-{
-	int		l;
-	int		z;
-	char	*tmp;
-	char	*w;
-
-	z = flags & ZERO;
-	l = ft_strlen(buf);
-	w = l < wd ? ft_strnew(wd - l) : NULL;
-	if (w)
-		ft_memset(w, (z ? '0' : ' '), (!z && wd - l > 0 ? wd - l : wd - l - 1));
-	if (w && !(flags & MINUS))
-	{
-		tmp = ft_strdup(buf);
-		ft_memcpy(buf, w, wd - l);
-		if (!z && *neg < 0)
-		{
-			buf[wd - l - 1] = '-';
-			*neg = 1;
-		}
-		ft_memdel((void**)&w);
-		ft_memcpy(buf + wd - l, tmp, l);
-		ft_memdel((void**)&tmp);
-	}
-	else if (w && (flags & MINUS))
-		ft_memcpy(buf + ft_strlen(buf), w, wd - 1);
+	if (n->sign < 0)
+		return ('-');
+	if (flags & SPACE)
+		return (' ');
+	if (flags & PLUS)
+		return ('+');
+	return (0);
 }
