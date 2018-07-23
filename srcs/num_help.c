@@ -6,24 +6,25 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/31 17:50:58 by pstringe          #+#    #+#             */
-/*   Updated: 2018/05/31 17:51:26 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/07/23 11:26:34 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
 /*
-**	determines what base should be passed to ft_pn base on the type of the conversion
+**	determines what base should be passed to ft_pn base on the type of the
+**	conversion
 */
 
-int 	get_base(t_m *m)
+int		get_base(t_m *m)
 {
 	if (m->place->type == 3)
 		return (10);
 	if (m->place->type == 4)
 		return (10);
 	if (m->place->type == 5)
-		return(10);
+		return (10);
 	if (m->place->type == 6)
 		return (8);
 	if (m->place->type == 7)
@@ -42,7 +43,7 @@ int 	get_base(t_m *m)
 void	num_prcs(char buf[100], int pr, int *i)
 {
 	int		l;
-	char 	*tmp;
+	char	*tmp;
 	char	*p;
 
 	p = (l = ft_strlen(buf)) < pr ? ft_strnew(pr - l) : NULL;
