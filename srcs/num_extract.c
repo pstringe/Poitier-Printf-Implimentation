@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 15:37:00 by pstringe          #+#    #+#             */
-/*   Updated: 2018/07/22 19:21:33 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/07/23 12:00:59 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 **	obtains the number's base depending on type
 */
 
-void 	get_base(t_m *m, t_num *n)
+void	get_base(t_m *m, t_num *n)
 {
 	if (m->place->type == 3)
 		n->base = 10;
@@ -45,7 +45,7 @@ void 	get_base(t_m *m, t_num *n)
 void	get_lmod(t_m *m)
 {
 	int t;
-	
+
 	t = m->place->type;
 	m->place->len = t == 4 || t == 7 || t == 9 ? 2 : m->place->len;
 }
@@ -54,7 +54,7 @@ void	get_lmod(t_m *m)
 **	determines how an argument is extracted for signed conversions
 */
 
-void 	signed_conversion(t_m *m, t_num *n)
+void	signed_conversion(t_m *m, t_num *n)
 {
 	if (m->place->len == -1)
 		ft_spn((intmax_t)va_arg((m->ap), int), n, m);
@@ -76,7 +76,7 @@ void 	signed_conversion(t_m *m, t_num *n)
 **	determines how an argument is extracted fr unsigned conversions
 */
 
-void 	unsigned_conversion(t_m *m, t_num *n)
+void	unsigned_conversion(t_m *m, t_num *n)
 {
 	if (m->place->len == -1)
 		ft_upn((uintmax_t)va_arg((m->ap), unsigned int), n, m);
@@ -112,7 +112,7 @@ void	get_num(t_m *m, t_num *n)
 		m->place->len = 4;
 	if (type == 3 || type == 4 || type == 5)
 		signed_conversion(m, n);
-	else if (type == 2 || type == 6 || type == 7 || type == 8 || type == 10 || type == 11)
+	else if (type == 2 || type == 6 || type == 7 || type == 8 ||
+			type == 10 || type == 11)
 		unsigned_conversion(m, n);
 }
-

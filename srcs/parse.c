@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:45:41 by pstringe          #+#    #+#             */
-/*   Updated: 2018/07/22 18:07:20 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/07/23 12:30:34 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,39 +16,28 @@
 #define I_W m->format[m->pos_f]== '*'
 #define N_P ((I_P || I_W || m->format[m->pos_f]=='.') ? m->pos_f+1 : m->pos_f)
 
-void 	skip_whitespace(t_m *m)
-{
-	while (ft_is_whitespace(m->format[m->pos_f]))
-		m->pos_f++;
-}
-
 /*
 **	checks for width parameter in placeholder or wildcard, and stores
 */
 
 int		get_width(t_m *m)
 {
-	int w;
 	int l;
 	int a;
 	int s;
+	int w;
 
 	s = m->place->flags & SPACE ? 0 : 1;
 	skip_whitespace(m);
-	w = 0;
+	m->place->width = 0;
 	if ((a = (m->format[m->pos_f + s] == '*')))
-	{
-		w = va_arg(m->ap, int);
-		m->place->width = w;
-	}
+		m->place->width = va_arg(m->ap, int);
 	else if (m->format[m->pos_f + s] >= '0' && m->format[m->pos_f + s] <= '9')
-	{
-		w = ft_atoi(m->format + m->pos_f + s);
-		m->place->width = w;
-	}
+		m->place->width = ft_atoi(m->format + m->pos_f + s);
 	else
 		return (0);
 	l = 1;
+	w = m->place->width;
 	while ((w /= 10) && !a)
 		l++;
 	m->pos_f += l;
@@ -85,7 +74,6 @@ int		get_precision(t_m *m)
 	int	p;
 	int	l;
 
-	p = -1;
 	if (m->format[m->pos_f] == '.')
 		m->pos_f--;
 	if (m->format[m->pos_f + 1] == '.')
@@ -95,21 +83,16 @@ int		get_precision(t_m *m)
 			m->pos_f++;
 		}
 		else if (S_W_N)
-		{
-			p = ft_atoi(m->format + m->pos_f + 1);
-			m->place->precision = p;
-		}
+			m->place->precision = ft_atoi(m->format + m->pos_f + 1);
 		else
 			return (-1);
 	else
-	{
-		m->place->precision = p;
-		return (0);
-	}
+		m->place->precision = -1;
 	l = 1;
-	while (p /= 10)
+	p = m->place->precision;
+	while (p >= 0 && (p /= 10))
 		l++;
-	m->pos_f += l;
+	m->pos_f += m->place->precision == -1 ? 0 : l;
 	return (l);
 }
 
@@ -126,11 +109,13 @@ int		get_len(t_m *m)
 	init_lens(lens);
 	i = -1;
 	while (++i < NO_OF_LENS && m->place->len < 0)
-		if (!ft_strncmp(m->format + m->pos_f + 1, lens[i], (l = ft_strlen(lens[i]))))
+		if (!ft_strncmp(m->format + m->pos_f + 1, lens[i],
+					(l = ft_strlen(lens[i]))))
 			m->place->len = i;
 		else
 			l = 0;
-	if ((I_P && m->place->start != m->pos_f) || (m->place->len == -1 && (m->place->flags & SPACE)))
+	if ((I_P && m->place->start != m->pos_f) ||
+			(m->place->len == -1 && (m->place->flags & SPACE)))
 		m->pos_f += 0;
 	else
 		m->pos_f += l + 1;

@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 19:31:04 by pstringe          #+#    #+#             */
-/*   Updated: 2018/07/23 11:51:33 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/07/23 12:17:13 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,7 @@ void			ft_upn(uintmax_t nb, t_num *n, t_m *m);
 */
 
 
+void 			skip_whitespace(t_m *m);
 int				replace(t_m *m, char buf[MAX], char *conv);
 int				is_flag(char c);
 void			put(t_m *m, char buf[MAX]);
