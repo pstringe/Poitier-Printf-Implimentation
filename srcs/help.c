@@ -6,13 +6,13 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 13:54:16 by pstringe          #+#    #+#             */
-/*   Updated: 2018/07/23 12:17:28 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/07/23 13:08:14 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void 	skip_whitespace(t_m *m)
+void	skip_whitespace(t_m *m)
 {
 	while (ft_is_whitespace(m->format[m->pos_f]))
 		m->pos_f++;
