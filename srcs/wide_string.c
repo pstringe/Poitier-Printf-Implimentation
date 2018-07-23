@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 16:01:16 by pstringe          #+#    #+#             */
-/*   Updated: 2018/07/22 17:26:09 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/07/22 17:40:41 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static wchar_t *ft_wstrnew(size_t size)
 	return (str);
 }
 
-size_t			ft_wstrlen(const wchar_t *str)
+static size_t			ft_wstrlen(const wchar_t *str)
 {
 	size_t i;
 
