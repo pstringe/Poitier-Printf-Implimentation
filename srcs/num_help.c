@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/31 17:50:58 by pstringe          #+#    #+#             */
-/*   Updated: 2018/07/23 11:26:34 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/07/23 11:50:43 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,14 @@ int		get_base(t_m *m)
 **	edits string according to precision
 */
 
-void	num_prcs(char buf[100], int pr, int *i)
+void	num_prcs(char buf[100], int pr)
 {
 	int		l;
 	char	*tmp;
 	char	*p;
 
-	p = (l = ft_strlen(buf)) < pr ? ft_strnew(pr - l) : NULL;
+	l = ft_strlen(buf);
+	p = l < pr ? ft_strnew(pr - l) : NULL;
 	if (p)
 	{
 		tmp = ft_strdup(buf);
@@ -56,14 +57,13 @@ void	num_prcs(char buf[100], int pr, int *i)
 		ft_memcpy(buf + pr - l, tmp, l);
 		ft_memdel((void**)&tmp);
 	}
-	*i += pr - l;
 }
 
 /*
 **	edits string according to width specifications
 */
 
-void 	num_wdth(char buf[100], int wd, int flags, int *neg, int *i)
+void 	num_wdth(char buf[100], int wd, int flags, int *neg)
 {
 	int		l;
 	int		z;
@@ -89,5 +89,4 @@ void 	num_wdth(char buf[100], int wd, int flags, int *neg, int *i)
 	}
 	else if (w && (flags & MINUS))
 		ft_memcpy(buf + ft_strlen(buf), w, wd - 1);
-	*i += wd - l;
 }
