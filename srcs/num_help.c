@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/31 17:50:58 by pstringe          #+#    #+#             */
-/*   Updated: 2018/07/23 11:50:43 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/07/23 11:54:37 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,16 @@ void	num_prcs(char buf[100], int pr)
 **	edits string according to width specifications
 */
 
-void 	num_wdth(char buf[100], int wd, int flags, int *neg)
+void	num_wdth(char buf[100], int wd, int flags, int *neg)
 {
 	int		l;
 	int		z;
-	char 	*tmp;
+	char	*tmp;
 	char	*w;
 
 	z = flags & ZERO;
-	w = (l = ft_strlen(buf)) < wd ? ft_strnew(wd - l) : NULL;
+	l = ft_strlen(buf);
+	w = l < wd ? ft_strnew(wd - l) : NULL;
 	if (w)
 		ft_memset(w, (z ? '0' : ' '), (!z && wd - l > 0 ? wd - l : wd - l - 1));
 	if (w && !(flags & MINUS))
@@ -81,7 +82,7 @@ void 	num_wdth(char buf[100], int wd, int flags, int *neg)
 		if (!z && *neg < 0)
 		{
 			buf[wd - l - 1] = '-';
-			*neg = 1;	
+			*neg = 1;
 		}
 		ft_memdel((void**)&w);
 		ft_memcpy(buf + wd - l, tmp, l);
