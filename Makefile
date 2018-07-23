@@ -14,7 +14,6 @@ FILES = ft_printf\
 	   string\
 	   digit\
 	   pointer\
-	   uch\
 	   num_extract\
 	   num_convert\
 	   num_flags\
