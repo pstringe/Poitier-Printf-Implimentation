@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 13:54:16 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/04 16:21:26 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/07/23 10:55:20 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 int		replace(t_m *m, char buf[MAX], char *conv)
 {
 	int	i;
+
 	i = -1;
 	while (conv[++i] && m->pos_b + i < MAX)
 		buf[m->pos_b + i] = conv[i];

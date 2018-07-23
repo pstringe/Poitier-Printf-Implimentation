@@ -82,7 +82,7 @@ clean:
 fclean: clean
 	@make -C $(LFT) fclean
 	@$(RM) $(NAME)
-	@$(RM) $(TEST)
+	@$(RM) -rf $(TEST)
 	@$(RM) $(DNAME)
 	@$(RM) -rf $(DNAME).dSYM
 

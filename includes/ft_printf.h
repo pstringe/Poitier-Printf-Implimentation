@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 19:31:04 by pstringe          #+#    #+#             */
-/*   Updated: 2018/07/22 16:43:50 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/07/23 11:10:27 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ int				convert(t_m *m, char buf[MAX]);
 **	initialization functions
 */
 
+void			init_f(t_f *flags, t_m *m);
 void			init_funcs(int	(*con[NO_OF_TYPES])(t_m*, char buf[MAX]));
 void			init_lens(char	*lens[NO_OF_LENS]);
 void			init(t_m *m, const char *format, char buf[MAX]);

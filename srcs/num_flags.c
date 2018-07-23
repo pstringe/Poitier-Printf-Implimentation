@@ -6,27 +6,11 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/09 15:18:34 by pstringe          #+#    #+#             */
-/*   Updated: 2018/06/20 21:26:09 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/07/23 11:13:05 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-/*
-**	initialized a struct to easily deal with flags
-*/
-
-static void init_f(t_f *flags, t_m *m)
-{
-	int f;
-
-	f = m->place->flags;
-	flags->m = f & MINUS;
-	flags->p = f & PLUS;
-	flags->s = f & SPACE;
-	flags->z = f & ZERO;
-	flags->h = f & HASH;
-}
 
 /*
 **	calculates the space left to copy the prefix
@@ -41,7 +25,9 @@ static int	space_left(t_num *n, t_f f)
 	s = n->base == 16 ? 2 : 1;
 	w = f.z ? '0' : ' ';
 	i = -1;
-	while (n->b_conv[++i] == w);
+	while (n->b_conv[++i] == w)
+	{
+	}
 	return (i >= s ? i : 0);
 }
 
@@ -55,13 +41,15 @@ void		hex_hash(t_m *m, t_num *n, t_f flags, int ol)
 	int		pos;
 
 	if ((pos = space_left(n, flags)))
-		ft_memcpy(n->b_conv + (*n->b_conv == ' '? pos - 2 : 0), (m->place->type == 11 ? "0X": "0x"), 2);
+		ft_memcpy(n->b_conv + (*n->b_conv == ' ' ? pos - 2 : 0),
+				(m->place->type == 11 ? "0X" : "0x"), 2);
 	else
 	{
 		ft_bzero(tmp, 100);
-		ft_memcpy(tmp, (m->place->type == 11 ? "0X": "0x"), 2);
+		ft_memcpy(tmp, (m->place->type == 11 ? "0X" : "0x"), 2);
 		ft_strlcat(tmp, n->b_conv, 100);
-		ft_memcpy(n->b_conv, tmp, ((flags.m && ol <= m->place->width) ? m->place->width : ft_strlen(tmp)));
+		ft_memcpy(n->b_conv, tmp, ((flags.m && ol <= m->place->width) ?
+					m->place->width : ft_strlen(tmp)));
 	}
 }
 
@@ -71,8 +59,8 @@ void		hex_hash(t_m *m, t_num *n, t_f flags, int ol)
 
 void		octal_hash(t_num *n, t_f flags)
 {
-	char 	tmp[100];
-	int 	pos;
+	char	tmp[100];
+	int		pos;
 
 	if ((pos = space_left(n, flags)))
 		n->b_conv[pos - 1] = '0';
@@ -95,7 +83,7 @@ void		plus(t_m *m, t_num *n, int flags)
 **	handles any flags that weren't handled in precision and width
 */
 
-void 		flags(t_m *m, t_num *n)
+void		flags(t_m *m, t_num *n)
 {
 	int		ol;
 	t_f		flags;
@@ -112,5 +100,4 @@ void 		flags(t_m *m, t_num *n)
 		}
 	if (flags.p)
 		plus(m, n, m->place->flags);
-
 }

@@ -6,11 +6,27 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:41:06 by pstringe          #+#    #+#             */
-/*   Updated: 2018/07/22 19:21:57 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/07/23 11:13:00 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+/*
+**	initialized a struct to easily deal with flags
+*/
+
+void	init_f(t_f *flags, t_m *m)
+{
+	int f;
+
+	f = m->place->flags;
+	flags->m = f & MINUS;
+	flags->p = f & PLUS;
+	flags->s = f & SPACE;
+	flags->z = f & ZERO;
+	flags->h = f & HASH;
+}
 
 void	init_funcs(int (*con[NO_OF_TYPES])(t_m*, char buf[MAX]))
 {
@@ -39,7 +55,7 @@ void	init_lens(char *lens[NO_OF_LENS])
 	lens[3] = "h";
 	lens[4] = "j";
 	lens[5] = "z";
-}	
+}
 
 void	init(t_m *m, const char *format, char buf[MAX])
 {
