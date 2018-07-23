@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 09:40:33 by pstringe          #+#    #+#             */
-/*   Updated: 2018/07/22 17:32:26 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/07/22 18:05:05 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,8 @@ void	w_test_1()
 	int b;
 
 	ft_putstr("s_break_1\n");
-	a = printf("A res: %S\n", L"@@");
-	b = ft_printf("B res: %S\n", L"@@");
+	a = printf("A res: %ls\n", L"@@");
+	b = ft_printf("B res: %ls\n", L"@@");
 	printf("A ret: %d\n", a);
 	printf("B ret: %d\n", b);
 	ft_putchar('\n');

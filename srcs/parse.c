@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:45:41 by pstringe          #+#    #+#             */
-/*   Updated: 2018/07/22 14:48:18 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/07/22 18:07:20 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,8 @@ int		get_type(t_m *m)
 	while (types[++i])
 		if (m->format[m->pos_f] == types[i])
 			m->place->type = i;
+	if (m->place->type == 0 && m->place->len == 2)
+		m->place->type = 1;
 	m->pos_f++;
 	return (i);
 }
