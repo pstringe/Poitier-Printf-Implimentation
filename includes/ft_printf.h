@@ -6,7 +6,7 @@
 /*   By: pstringe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 19:31:04 by pstringe          #+#    #+#             */
-/*   Updated: 2018/07/23 13:33:43 by pstringe         ###   ########.fr       */
+/*   Updated: 2018/07/25 13:01:39 by pstringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define MAX 16000
 # define TYPES "sSpdDioOuUxXcC%"
 # define FLAGS "-+ 0#"
-# define NO_OF_TYPES 14
+# define NO_OF_TYPES (14 + 1)
 # define NO_OF_LENS 6
 
 /*

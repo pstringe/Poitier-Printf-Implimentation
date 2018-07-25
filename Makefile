@@ -25,7 +25,7 @@ FILES = ft_printf\
 
 CFILES = $(patsubst %, $(SRCS_DIR)%.c, $(FILES))
 OFILES = $(patsubst %, %.o, $(FILES))
-CFLAGS = -g -Wall -Werror -Wextra
+CFLAGS = -fsanitize=address -fno-omit-frame-pointer -g -Wall -Werror -Wextra
 
 #libft
 LFT = ./libft/
@@ -72,7 +72,7 @@ $(NAME): $(OFILES)
 	@ranlib $(NAME)
 
 $(TEST): fclean $(MAIN) $(OFILES)
-	@gcc -g $(MAIN) $(OFILES) $(LFT_OFILES) -o $(TEST)
+	@gcc -fsanitize=address -fno-omit-frame-pointer -g $(MAIN) $(OFILES) $(LFT_OFILES) -o $(TEST)
 
 clean:
 	@make -C $(LFT) clean
